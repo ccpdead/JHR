@@ -1,0 +1,20 @@
+<launch>
+<node pkg="jhr_collector" type="jhr_collector" name="jhr_collector" respawn ="true" output="screen">
+    <param name="dev_ip"      type="string"   value="192.168.11.104" />
+
+    <param name="cmd_node"         type="string" value="/cmd_vel"/> <!-- 底盘运动命令 -->
+    <param name="wheel_spacing"         type="int" value="298"/>  <!-- 轮间距毫米 295 377 300-->
+    <param name="pulse_equivalent"         type="int" value="10303"/>  <!-- 每米脉冲数 7670 10303-->
+    <param name="moto_type"         type="int" value="2"/>  <!-- 驱动器类型 0：合肥合动智能 1：和利时  2：合肥合动智能串口模式串口号:/dev/ttyMOTO-->
+
+    <param name="pwr_topic"         type="string" value="/jhr_power"/> <!-- 发布电量的话题 -->
+    <param name="pwr_alam"         type="int" value="10"/>  <!-- 电量报警值 -->
+    <param name="pwr_underVoltage"         type="int" value="1960"/> <!-- 电池欠压值 0.01V-->
+    <param name="pwr_fullVoltage"         type="int" value="2520"/> <!-- 电池满电电压 0.01V -->
+    <param name="pwr_currentRange"         type="int" value="7500"/> <!-- 电流量程 0.01A -->
+    <param name="pwr_capacity"         type="int" value="400"/> <!-- 额定容量 0.1AH -->
+
+    <param name="moto_kp"         type="int" value="0"/> <!-- 10 -->
+    <param name="moto_ki"         type="int" value="0"/> <!-- 10  30-->
+  </node>
+</launch>

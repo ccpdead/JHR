@@ -1,0 +1,4 @@
+<launch>
+	<node name="WT61CTTL" pkg = "jhr_imu" type = "WTC61CTTL.py" />
+	<node name="imu_data" pkg = 'jhr_imu' type = "imu_node.py" />
+</launch>

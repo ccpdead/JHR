@@ -26,9 +26,15 @@
     <!--配置导航插件参数-->
     <rosparam file="$(find jhr_navigation)/config/JHRobot/move_planner_params.yaml" command="load" /> 
 
+    <!--￥ 是否使用线性速度优化-->
     <remap from="cmd_vel" to="/cmd_vel_movebase"/>
+    <!-- <remap from="cmd_vel" to="/cmd_vel"/> -->
 
-    <!-- <remap from="odom" to="/odom_combined"/> -->
+    <!--$ 使用轮式里程机-->
+    <!-- <remap from="odom" to="/robot_pose_ekf/odom_combined"/> -->
+    <param name="frame_id" value="base_footprint" />
+    
+    <!--￥ 使用激光里程机-->
     <remap from="odom"     to="/rtabmap_odom"/>
     <param name="frame_id" value="rtabmap_odom"/>
 

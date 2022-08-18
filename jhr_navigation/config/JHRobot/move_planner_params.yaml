@@ -1,16 +1,16 @@
 DWAPlannerROS:
 # 机器人本身参数：
-  acc_lim_x: 2.5      #(double, default:2.5) #x方向加速度的绝对值
-  acc_lim_y: 2.5      #(double, default:2.5) #y方向加速度的绝对值
-  acc_lim_th: 3.2     #(double, default:3.2) #旋转加速度的绝对值
-  max_trans_vel: 0.55 #(double, default:0.55) #平移速度最大值绝对值
-  min_trans_vel: 0.1  #(double, default:0.1) #平移速度最小值的绝对值
-  max_vel_x: 0.55     #(double, default:0.55) #x方向最大速度的绝对值
-  min_vel_x: 0.1      #(double, default:0.0) #x方向最小值绝对值，如果是负值表示后退运动
+  acc_lim_x: 4      #(double, default:2.5) #x方向加速度的绝对值
+  acc_lim_y: 0.0      #(double, default:2.5) #y方向加速度的绝对值
+  acc_lim_th: 13     #(double, default:3.2) #旋转加速度的绝对值
+  max_vel_trans: 1 #(double, default:0.55) #平移速度最大值绝对值
+  min_vel_trans: 0.1  #(double, default:0.1) #平移速度最小值的绝对值
+  max_vel_x: 1     #(double, default:0.55) #x方向最大速度的绝对值
+  min_vel_x: -0.2      #(double, default:0.0) #x方向最小值绝对值，如果是负值表示后退运动
   max_vel_y: 0.0      #(double, default:0.1) #y方向最大速度的绝对值
   min_vel_y: 0.0      #(double, default:-0.1) #y方向最小速度的绝对值
-  max_rot_vel: 1.0    #(double, default:1.0) #最大旋转速度的绝对值
-  min_rot_vel: 0.4    #(double, default:0.4) #最小旋转速度的绝对值
+  max_rot_vel: 2.0    #(double, default:1.0) #最大旋转速度的绝对值
+  min_rot_vel: 0.3    #(double, default:0.4) #最小旋转速度的绝对值
 
 # 目标点容错参数：
   yaw_goal_tolerance: 0.05        #(double, default:0.05) #到达目标点时偏航角误差
@@ -18,9 +18,9 @@ DWAPlannerROS:
   latch_xy_goal_tolerance: false  #(double, default:false) #设置为true时，如果到达容错距离内，则机器人就会原地旋转，即便转动时会跑出容错距离外
 
 # 前进仿真参数
-  sim_time: 1.7               #(double, default:1.7) #向前仿真轨迹的时间
+  sim_time: 2.5               #(double, default:1.7) #向前仿真轨迹的时间
   sim_granularity: 0.025      #(double, default:0.025) #步长，轨迹上采样点之间的距离
-  vx_samples: 3               #(integer, default:3) #x方向速度空间的采样点数
+  vx_samples: 40               #(integer, default:3) #x方向速度空间的采样点数
   vy_samples: 10              #(integer, default:10) #y方向速度空间采样点数
   vth_samples:  20            #(integer, default:20) #旋转方向的速度空间采样点数
   controller_frequency: 20    #(double, default:20.0) #控制器被调用的频率
@@ -28,8 +28,9 @@ DWAPlannerROS:
   path_distance_bias: 32.0    #(double, default:32.0) #定义控制器与给定路径接近程度
   goal_distance_bias: 24.0    #(double, default:24.0) #定义控制器与局部目标点的接近程度，并控制速度
   occdist_scale: 0.01         #(double, default:0.01) #定义控制器躲避障碍物的程度
+  forward_point_distance: 0.325 #(0.325)机器人中心点到放置附加得分点的距离，以米为单位
   stop_time_buffer: 0.02      #(double, default:0.2) #为防止碰撞，机器人必须提前停止的时间长度。
-  .scaling_speed: 0.25        #(double, default:0.25) #启动机器人底座的速度
+  scaling_speed: 0.25        #(double, default:0.25) #启动机器人底座的速度
   max_scaling_factor: 0.2     #(double, default:0.2) #最大缩放参数
 # 防震荡参数
   oscillation_reset_dist: 0.05 #(double, default:0.05) #机器人运动多远距离才会重置振荡标记
@@ -38,10 +39,10 @@ DWAPlannerROS:
 
 ######################################################################################
 GlobalPlanner:                                 
-  allow_unknown: true        #(bool, default:true) #是否允许规划器规划穿过未知区域的路径
+  allow_unknown: false        #(bool, default:true) #是否允许规划器规划穿过未知区域的路径
   default_tolerance: 0.0     #(double, default:0.0) #路径规划器规划出的终点容错距离
-  visualize_potential: false #(bool, default:false) #是否显示从PointCloud2计算得到的势区域
+  visualize_potential: true #(bool, default:false) #是否显示从PointCloud2计算得到的势区域
   use_dijkstra: true         #(bool, default:true) #如果设置为true，则使用dijkstra算法，否则使用A*算法
-  use_quadratic: true        #(bool, default:true) #如果设置为true，使用二次函数近似势函数。否则使用更加简单的计算方式
+  use_quadratic: false        #(bool, default:true) #如果设置为true，使用二次函数近似势函数。否则使用更加简单的计算方式
   use_grid_path: false       #(bool, default:false) #如果设置为true，则创建一条沿着网格边界的路径，否则使用梯度下降法。
   old_navfn_behavior: false  #(bool, default:false) #如果出于某些原因，你想让global_planner完全复制navfn的行为，则设置为true

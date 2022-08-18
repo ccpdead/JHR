@@ -1,0 +1,5 @@
+<launch>
+  <node pkg="rviz" type="rviz" name="imu_rviz_node" 
+        args="-d $(find jhr_imu)/cfg/imu_display.rviz">
+  </node>
+</launch>

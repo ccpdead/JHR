@@ -1,0 +1,29 @@
+<launch>
+  <!--$ 给ICP_odom里程计增添协方差矩阵 -->
+  <!--注意,lidar_odom函数的作用是给里程机添加协防差数据,并以ICP/odom_covariance的形式发布出来-->
+<!-- <node name="lidar_odom" pkg="jhr_lidar_odom" type="jhr_lidar_odom"  output="screen" /> -->
+
+<!-- //////////////////////////////////////////////////////////// -->
+  <!-- $雷达视觉避障融合 -->
+<!-- <node name="lidar_pointcloud" pkg="lidar_pointcloud" type="lidar_point" output="screen"/> -->
+
+<!-- /////////////////////////////////////////////////////////////////////// -->
+
+<node pkg="robot_pose_ekf" type="robot_pose_ekf" name="robot_pose_ekf">
+
+    <remap from="vo" to="/rtabmap_odom"/>
+    <remap from="odom" to="/wheel_odom"/>
+    
+
+    <param name="output_frame"         value="/odom_combined"/>
+    <param name="base_footprint_frame" value="base_footprint"/>
+    
+    <param name="freq"                 value="30.0"/>
+    <param name="sensor_timeout"       value="10"/>  
+    <param name="odom_used"            value="true"/>
+    <param name="imu_used"             value="false"/>
+    <param name="vo_used"              value="true"/>
+
+</node>
+</launch>
+

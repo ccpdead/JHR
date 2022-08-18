@@ -37,9 +37,9 @@
   <arg name="scan_cloud_topic"        default="/scan_cloud"/>
   
   <arg name="visual_odometry"         default="false"/>          <!-- Generate visual odometry -->
-  <arg name="icp_odometry"            default="true"/> 
+  <arg name="icp_odometry"            default="false"/> 
 
-  <arg name="odom_topic"              default="rtabmap_odom"/>         <!-- Odometry topic used if visual_odometry is false -->
+  <arg name="odom_topic"              default="rtabmap_odom"/>         Odometry topic used if visual_odometry is false
   <!-- <arg name="odom_topic"              default="/robot_pose_ekf/odom_combined"/> -->
   <!-- <arg name="odom_frame_id"           default="odom_combined"/>  -->             <!-- If set, TF is used to get odometry instead of the topic -->
   <arg name="odom_frame_id"           default=""/>

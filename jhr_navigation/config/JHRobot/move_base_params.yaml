@@ -7,15 +7,15 @@
 #{name:aggressive_reset,type:clear_costmap_recovery/ClearCostmapRecovery}
 #用于move_base修复的插件列表，当move_base找不到可行的路径规划方案时，move_base将按照这些顺序执行操作。每个操作执行完后，move_base会在此尝试生成路径规划方案，如果成功，则继续正常操作；否则，启动下一个修复操作。
 
-#recovery_behaviors:  
+recovery_behaviors: aggressive_reset
 
 controller_frequency: 20.0 #(double, default:20.0) #控制循环的执行频率，也可认为是速度发布指令的频率
 planner_patience: 5.0 #(double, default:5.0) #规划器在空间清除操作前,能够进行路径规划的时间
-conservative_reset_dist: 3.0 #(double, default:3.0) #当在地图中清理出空间时，距离机器人几米远的障碍会从代价地图中清除
+conservative_reset_dist: 2.0 #(double, default:3.0) #当在地图中清理出空间时，距离机器人几米远的障碍会从代价地图中清除
 recovery_behavior_enabled: true #(bool, default:true) #是否启用move_base修复机制
-clearing_rotation_allowed: false #(bool, default:true) #在清除空间操作时，是否允许底座原地旋转
-shutdown_costmaps: false #(bool, default:false) #当move_base不活动时，是否关闭costmaps
-oscillaiton_timeout: 0.0 #(double, default:0.0) #执行修复机制前，允许振荡的时长
+clearing_rotation_allowed: true #(bool, default:true) #在清除空间操作时，是否允许底座原地旋转
+shutdown_costmaps: ture #(bool, default:false) #当move_base不活动时，是否关闭costmaps
+oscillaiton_timeout: 5 #(double, default:0.0) #执行修复机制前，允许振荡的时长
 oscillation_distance: 0.5 #(double, default:0.5) #来回运动在多大距离以上不会被认为是振荡
 planner_frequency: 0.0 #(double, default:0.0) #全局规划操作的执行频率。如果设置为0.0，则全局规划器仅在接收到新的目标点或者局部规划器报告路径堵塞时才会重新执行规划操作
 max_planning_retries: -1 #(int32, default:-1) #在执行修复操作前，允许规划器重新规划路径的次数，-1.0表示无限多次重新尝试
