@@ -1,0 +1,93 @@
+DWAPlannerROS:
+
+# Robot Configuration Parameters
+  max_vel_x: 0.2
+  min_vel_x: -0.2
+
+  max_vel_y: 0.0
+  min_vel_y: 0.0
+
+# The velocity when robot is moving in a straight line
+  max_vel_trans:  0.20
+  min_vel_trans:  0.01
+
+  max_vel_theta: 1
+  min_vel_theta: 0.1
+
+  acc_lim_x: 3
+  acc_lim_y: 0.0
+  acc_lim_theta: 4.71
+
+# Goal Tolerance Parameters
+  xy_goal_tolerance: 0.03
+  yaw_goal_tolerance: 0.01
+  latch_xy_goal_tolerance: false
+
+# Forward Simulation Parameters
+  sim_time: 1.5
+  vx_samples: 10
+  vy_samples: 0
+  vth_samples: 10
+  controller_frequency: 10.0
+
+# Trajectory Scoring Parameters
+  path_distance_bias: 32.0
+  goal_distance_bias: 20.0
+  occdist_scale: 0.02
+  forward_point_distance: 0.325
+  stop_time_buffer: 0.2
+  scaling_speed: 0.25
+  max_scaling_factor: 0.2
+
+# Oscillation Prevention Parameters
+  oscillation_reset_dist: 0.05
+
+# Debugging
+  publish_traj_pc : true
+  publish_cost_grid_pc: true
+#..............................................................................................................
+
+
+# controller_frequency: 3.0 # 更新路径规划的频率
+# recovery_behavior_enabled: false # 复原行为使能
+# clearing_rotation_allowed: false # 清除旋转允许
+ 
+# TrajectoryPlannerROS: # ROS轨迹计划
+#    max_vel_x: 0.3 # X方向最大速度
+#    min_vel_x: 0.05 # X方向最小速度
+#    max_vel_y: 0.0  # 差速轮机器人无Y方向速度，取0
+#    min_vel_y: 0.0
+ 
+#    min_in_place_vel_theta: 0.5 # 机器人最小原地旋转速度
+#    escape_vel: -0.1 # 机器人逃离速度，负值
+ 
+#    acc_lim_x: 2.5 # X方向最大线加速度
+#    acc_lim_y: 0.0 # 差速轮机器人无Y方向线加速度，取0
+#    acc_lim_theta: 3.2 # 最大角加速度
+ 
+#    holonomic_robot: false # 全向移动机器人使能
+#    yaw_goal_tolerance: 0.1 # 至多距离目标方向误差
+#    xy_goal_tolerance: 0.1  # 至多距离目标位置误差
+#    latch_xy_goal_tolerance: false # 锁定至多距离目标位置误差
+ 
+#    # 全局路径规划和到达目的地之间权重
+#    # 比 gdist_scale 大时，机器人倾向考虑全局路径规划
+#    pdist_scale: 0.8 
+#    # 到达目的地和全局路径规划之间权重
+#    # 比 pdist_scale 大时，机器人倾向考虑到达目的地
+#    gdist_scale: 0.6
+ 
+#    meter_scoring: true # 以米为单位
+ 
+#    occdist_scale: 0.1 # 避开障碍物的权重
+#    oscillation_reset_dist: 0.05 #在振荡标志被清零前，机器人必须在出行多远。
+#    publish_cost_grid_pc: false # 是否使用cost_grid发布
+#    prune_plan: true # 机器人行走1m后，结束动作。
+ 
+#    sim_time: 1.0 # 规划时需要考虑未来多长时间，结合dwa
+#    sim_granularity: 0.025 # 给定轨迹的步长
+#    angular_sim_granularity: 0.025 # 给定角度轨迹的弧长
+#    vx_samples: 8 # x方向速度的样本数
+#    vy_samples: 0 # 差速轮机器人无Y方向速度，取0
+#    vtheta_samples: 20 # 角速度的样本数，默认为20
+#    dwa: true # 模拟未来轨迹时是否使用动态窗口法

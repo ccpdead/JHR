@@ -1,0 +1,16 @@
+local_costmap:
+  global_frame: rtabmap_odom
+  robot_base_frame: base_footprint
+
+  update_frequency: 10
+  publish_frequency: 10
+  transform_tolerance: 0.5
+
+  static_map: false  #不使用静态地图
+  rolling_window: true  #使用滚动地图
+  width: 5
+  height: 5
+  resolution: 0.05
+
+
+

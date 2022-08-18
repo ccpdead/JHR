@@ -1,0 +1,32 @@
+<launch>
+
+  <arg name="map_file"       default="$(find jhr_navigation)/maps/rtabmap_map.yaml"/>
+  <node pkg="map_server" name="map_server" type="map_server" args="$(arg map_file)">
+      <remap from="map" to="saved_map"/>
+  </node>
+
+  <node pkg="tf" type="static_transform_publisher" name="map" args="0 0 0 0 0 0  map odom_combined   30" />
+
+
+  <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen" clear_params="true">
+      <!--配置代价地图的共有参数-->
+      <param name="base_local_planner" value="dwa_local_planner/DWAPlannerROS" />
+      <rosparam file="$(find jhr_navigation)/config/Recharge/costmap_common_params.yaml" command="load" ns="global_costmap" />
+      <rosparam file="$(find jhr_navigation)/config/Recharge/costmap_common_params.yaml" command="load" ns="local_costmap" />
+      <!--配置局部代价地图和全局代价地图-->
+      <rosparam file="$(find jhr_navigation)/config/Recharge/local_costmap_params.yaml" command="load" />
+      <rosparam file="$(find jhr_navigation)/config/Recharge/global_costmap_params.yaml" command="load" />
+      <!--配置movebase框架参数-->
+      <rosparam file="$(find jhr_navigation)/config/Recharge/move_base_params.yaml" command="load" />
+      <!--配置导航插件参数-->
+      <rosparam file="$(find jhr_navigation)/config/Recharge/move_planner_params.yaml" command="load" /> 
+
+      <remap from="cmd_vel" to="/cmd_vel"/>
+      <remap from="odom" to="/odom_combined"/>
+      <!-- <remap from="scan" to="/scan"/> -->
+      <remap from="map" to="/saved_map"/>
+
+  </node>  
+  	<node name="rviz" pkg="rviz" type="rviz" output="screen" args="-d $(find jhr_navigation)/rviz/recharge.rviz"/>
+
+</launch>

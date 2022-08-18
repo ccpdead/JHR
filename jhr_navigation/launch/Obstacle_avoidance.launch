@@ -1,0 +1,50 @@
+<launch>
+   <group ns="/tof_camera" >
+      
+      <!-- Generate a point cloud from the disparity image
+      <node pkg="nodelet" type="nodelet" name="disparity2cloud" args="standalone rtabmap_ros/point_cloud_xyz">
+         <remap from="depth/image"       to="/camera/depth/image_rect_raw"/>
+         <remap from="depth/camera_info" to="/camera/depth/camera_info"/>
+         <param name="queue_size" value="100"/>
+         <param name="voxel_size" type="double" value="0.05"/>
+         <param name="decimation" type="int" value="8"/>
+         <param name="max_depth" type="double" value="5"/>
+         <param name="min_depth" value="0.2"/>
+          <param name="noise_filter_radius" value="0.1"/> 
+         <param name="noise_filter_min_neighbors " value="5"/>
+         <remap from="cloud" to="cloud_xyz"/>
+      </node> -->
+      
+      <!--对点云信息进行地面分割处理-->
+      <node pkg="nodelet" type="nodelet" name="obstacles_detection" args="standalone rtabmap_ros/obstacles_detection">
+         <remap from="cloud" to="/sunny_topic/tof_frame/pointcloud"/>
+
+         <param name="frame_id" type="string" value="base_footprint"/>
+         <param name="Grid/MaxGroundAngle" value="20"/>
+         
+         <param name="Grid/MinClusterSize" type="int" value="20"/>
+         <param name="Grid/MaxObstacleHeight" type="double" value="1.0"/>
+      </node>
+   </group>
+
+   <!-- 从深度图获取点云信息
+   <group ns="/filled_depth_pointcloud">
+      <node pkg="nodelet" type="nodelet" name="disparity2cloud" args="standalone rtabmap_ros/point_cloud_xyz">
+         <remap from="depth/image"       to="/camera/depth/image_rect_raw"/>
+         <remap from="depth/camera_info" to="/camera/depth/camera_info"/>
+
+
+         <param name="queue_size" value="100"/>
+         <param name="voxel_size" type="double" value="0.03"/>
+         <param name="decimation" type="int" value="1"/>
+         <param name="max_depth" type="double" value="3.5"/>
+         <param name="min_depth" value="0.1"/>
+         
+         <param name="noise_filter_radius" value="0.07"/>
+         <param name="noise_filter_min_neighbors " value="15"/>
+         <remap from="cloud" to="depth_pointcloud"/>
+      </node>
+   </group> -->
+</launch>
+
+
