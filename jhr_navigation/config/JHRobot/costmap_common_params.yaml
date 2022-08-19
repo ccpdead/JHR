@@ -21,23 +21,27 @@ map_type: costmap
 #   min_obstacle_height: -5.0,
 #   max_obstacle_height: 5.0}
 
+
+# observation_sources: point_cloud_sensor
+# point_cloud_sensor: {
+#   sensor_frame: base_footprint,
+#   data_type: PointCloud2, 
+#   topic: /tof_camera/proj_obstacles, 
+#   expected_update_rate: 5, 
+#   marking: true, 
+#   clearing: true,
+#   min_obstacle_height: -5.0,
+#   max_obstacle_height: 5.0
+# }
+
 observation_sources: scan
 scan: {
-  sensor_frame: base_laser_link,
+  sensor_frame: base_footprint,
   data_type: LaserScan,
   topic: /scan,
   marking: true,
   clearing: true,
+  min_obstacle_height: -5.0,
+  max_obstacle_height: 5.0,
   expected_update_rate: 10
   }
-
-observation_sources: point_cloud_sensor
-point_cloud_sensor: {
-  sensor_frame: base_footprint,
-  data_type: PointCloud2, 
-  topic: /tof_camera/proj_obstacles, 
-  expected_update_rate: 5, 
-  marking: true, 
-  clearing: true,
-  min_obstacle_height: -5.0,
-  max_obstacle_height: 5.0}
