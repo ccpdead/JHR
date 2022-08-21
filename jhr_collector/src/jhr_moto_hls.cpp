@@ -7,13 +7,26 @@ short Jhr_moto_hls::rSpeed_r = 0;
 short Jhr_moto_hls::lCode_r = 0;
 short Jhr_moto_hls::rCode_r = 0;
 
-short chg_big_small(const char *dat)  //获取大端系统数据
+/**
+ * @brief 获取大端系统数据
+ * 
+ * @param dat 
+ * @return short 
+ */
+short chg_big_small(const char *dat) 
 {
     char ret[2];
     ret[0] = dat[1];ret[1] = dat[0];
     return *(short*)ret;
 }
-void Jhr_moto_hls::calcOdom(void) //计算pos
+
+/**
+ * @brief 里程计估计
+ * 
+ * @param lCode_r
+ * @param rCode_r
+ */
+void Jhr_moto_hls::calcOdom(void) 
 {
     static short old_l = 0;
     static short old_r = 0;
@@ -36,6 +49,13 @@ void Jhr_moto_hls::calcOdom(void) //计算pos
     old_l = lCode_r;
     old_r = rCode_r;
 }
+
+/**
+ * @brief 根据从UDP中获得的数据解析出下位机返回的线速度和角速度
+ * 
+ * @param buff_r 
+ * @param iLen 
+ */
 void Jhr_moto_hls::rcv_callback_1(const char*buff_r,int iLen)
 {
     if(iLen < 6)return;
@@ -65,6 +85,7 @@ void Jhr_moto_hls::rcv_callback_1(const char*buff_r,int iLen)
                     lCode_r = chg_big_small(&buff_r[6]);
                     rCode_r = chg_big_small(&buff_r[8]);
                     calcOdom();
+                    //￥ 在这里调用Jhr_moto::odom_publish（）发布里程计数据
                     Jhr_moto::odom_publish();
                     break;
             }
@@ -79,10 +100,16 @@ void Jhr_moto_hls::rcv_callback_1(const char*buff_r,int iLen)
     }
     moto_loop_pri();
 }
+
+/**
+ * @brief 电机回调函数，在main中30hz频率调用。
+ */
 void Jhr_moto_hls::moto_loop(void){
     static int iCnt = 0;
+    //$ 在这里调用moto中的直线模式和旋转模式两个函数
     Jhr_moto::LineMode_handle();
     Jhr_moto::TurnMode_handle();
+
     if(rcv_pack_cnt == iCnt){
             moto_loop_pri();
             // std::cout << "\n Jhr_moto_hls::rcv_pack_cnt：" << iCnt << "       \r\n";
@@ -91,10 +118,15 @@ void Jhr_moto_hls::moto_loop(void){
     }
     
 }
-//和利时modbus驱动
+
+/**
+ * @brief 和利时电机驱动部分，将得到的线速度角速度通过udp发送至下位机
+ * 
+ */
 void Jhr_moto_hls::moto_loop_pri(void)
 {
     static int iCnt = 0;
+    //￥ 在switch语句中首先判断电机转速
     switch(iCnt){
         case 0:generateEncoder(1);break;
         case 1:generateSpeed(1);break;
@@ -102,16 +134,18 @@ void Jhr_moto_hls::moto_loop_pri(void)
             if(Jhr_moto::lSpeed != 0 || Jhr_moto::rSpeed != 0) 
                 generateEnable(1,1); 
             else 
+                //$ 当两个电机目标速度都是‘0’时，将电机设置为否
                 generateEnable(1,0);
             break;
-        //case 3:
+        //￥ 通过左右轮速度模式控制电机
         default:generateSpeed(1,Jhr_moto::lSpeed,Jhr_moto::rSpeed);break;
     }
     iCnt ++;
     if(iCnt > 3) iCnt = 0;
 }
-/** 设置马达使能/失能
- * @brief Jhr_moto_hls::generateEnable
+
+/** 
+ * @brief 设置马达使能/失能
  * @param addr
  * @param enable  0：失能   1：使能
  * @return
@@ -127,8 +161,10 @@ void Jhr_moto_hls::generateEnable(unsigned char addr,unsigned char enable)
     *(unsigned short*)szCrc = crc16;
     udp_send_data((const char *)buff,sizeof(buff));
 }
+
 /** 读取马达转速 数据高字节在前
- *  @param addr
+ * @brief 设置电机速度
+ * @param addr
  **/
 void Jhr_moto_hls::generateSpeed(unsigned char addr)
 {
@@ -139,8 +175,9 @@ void Jhr_moto_hls::generateSpeed(unsigned char addr)
     *(unsigned short*)szCrc = crc16;
     udp_send_data((const char *)buff,sizeof(buff));
 }
+
 /** 设置左右马达速度运行 数据高字节在前
- * @brief Jhr_modbus::generateSpeed
+ * @brief 设置左右电机速度
  * @param addr
  * @param speedL
  * @param speedR
@@ -177,6 +214,7 @@ void Jhr_moto_hls::generateSpeed(unsigned char addr,short speedL,short speedR)
     *(unsigned short*)szCrc = crc16;
     udp_send_data((const char *)buff,sizeof(buff));
 }
+
 /** 读取编码器的值，数据高字节在前
  * @brief generateEncoder
  * @param addr
@@ -191,9 +229,18 @@ void Jhr_moto_hls::generateEncoder(unsigned char addr)
     *(unsigned short*)szCrc = crc16;
     udp_send_data((const char *)buff,sizeof(buff));
 }
+
+/**
+ * @brief 和利时udp数据发送
+ * 
+ * @param buff 
+ * @param len 
+ */
 void Jhr_moto_hls::udp_send_data(const char *buff,int len){
+    //￥ 注意，这里的jhr_udp_arr[2]是指向和利时驱动器的ip与端口号
     Jhr_udp::jhr_udp_arr[2]->send_data(buff,len);
 }
+
 // ********** modbos *********
 /* 高位字节的CRC  值  */
 const unsigned char auchCRCHi[] = {
@@ -230,6 +277,7 @@ const unsigned char auchCRCHi[] = {
 0x00, 0xC1, 0x81, 0x40, 0x01, 0xC0, 0x80, 0x41,
 0x01, 0xC0, 0x80, 0x41, 0x00, 0xC1, 0x81, 0x40
 } ;
+
 /* 低位字节的CRC  值  */
 const unsigned char auchCRCLo[] = {
 0x00, 0xC0, 0xC1, 0x01, 0xC3, 0x03, 0x02, 0xC2,
@@ -265,6 +313,7 @@ const unsigned char auchCRCLo[] = {
 0x44, 0x84, 0x85, 0x45, 0x87, 0x47, 0x46, 0x86,
 0x82, 0x42, 0x43, 0x83, 0x41, 0x81, 0x80, 0x40
 };
+
 /**
  * 函数以  unsigned short 类型返回  CRC
  */

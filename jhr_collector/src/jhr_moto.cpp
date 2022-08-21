@@ -2,8 +2,10 @@
 #include "jhr_udp.h"
 #include <math.h>
 # include <sstream>
-short Jhr_moto::lSpeed = 0;
-short Jhr_moto::rSpeed = 0;
+
+short Jhr_moto::lSpeed = 0;//左右轮经过差速运动学后计算得到的差速
+short Jhr_moto::rSpeed = 0;//左右轮经过差速运动学后计算得到的差速
+
 int Jhr_moto::kp = 0;    //(5~250)default:20
 int Jhr_moto::ki = 15; //(1:50)default:2
 int Jhr_moto::type = 0;
@@ -20,9 +22,9 @@ float Jhr_moto::posY = 0;
 float Jhr_moto::posRadian = 0;
 float Jhr_moto::vLinear = 0;
 float Jhr_moto::vAngular = 0;
-float Jhr_moto::vLinear0 = 0;
-float Jhr_moto::vAngular0 = 0;
-bool Jhr_moto::is_ask = true; //是否收到回复消息
+float Jhr_moto::vLinear0 = 0;//记录jhr_motor::tw_callback()中收到的线速度
+float Jhr_moto::vAngular0 = 0;//记录jhr_motor::tw_callback()中收到的角速度
+bool Jhr_moto::is_ask = true; //运行标志位
 int Jhr_moto::work_mode = 0;  //工作模式  0:速度模式，1：直线运行,2:原地旋转
 float posX_start,posY_start;    //直线运行、原地旋转模式的起始值
 float turn_Radian_set,posRadian_old,turn_Radian_curr; //原地旋转模式 旋转弧度设定值,旧值，当前值，
@@ -30,9 +32,11 @@ float line_distance;    //直线运行
 ros::Time curr_time;
 ros::Publisher *Jhr_moto::odom_pub_ptr = NULL;
 tf::TransformBroadcaster *Jhr_moto::odom_broadcaster = NULL;
+
 void Jhr_moto::moto_init(void)
 {
 }
+
 /**
  * 向指定文件写入信息
  */
@@ -50,14 +54,17 @@ void Jhr_moto::jhr_file_record(const std::string file_name,const std::string msg
 	fputs(msg.c_str(),fp);
 	fclose(fp);
 }
+
 void Jhr_moto::setWheelSpacing(short w_s)
 {
     wheel_spacing = w_s;
 }
+
 void Jhr_moto::setPulseEquivalent(float pulseEquivalent)
 {
     pulse_equivalent = pulseEquivalent;
 }
+
 void Jhr_moto::setSpeed(short _lSpeed,short _rSpeed){
     lSpeed = _lSpeed;
     rSpeed = _rSpeed;
@@ -76,6 +83,11 @@ void Jhr_moto::setTurnMode(float radian)
     rSpeed = lSpeed;
     is_ask = true;
 }
+
+/**
+ * @brief 该函数在jhr_moto_hls::motor_loop()中被调用。作用？
+ * 
+ */
 void Jhr_moto::TurnMode_handle()
 {
     if(work_mode != 2)return;
@@ -114,8 +126,14 @@ void Jhr_moto::setLineMode(float distance)
 	rSpeed = lSpeed * -1;
     is_ask = true;
 }
+
+/**
+ * @brief 该函数在jhr_moto_hls::motor_loop()中被调用，作用？
+ * 
+ */
 void Jhr_moto::LineMode_handle(void)
 {
+    //直线运行模式
     if(work_mode != 1)return;
     float f1 = sqrt((posX_start - posX) * (posX_start - posX) + (posY_start - posY)*(posY_start - posY));
     float f2 = (line_distance > 0 ? line_distance : line_distance*-1);
@@ -128,7 +146,13 @@ void Jhr_moto::LineMode_handle(void)
     is_ask = true;
     std::cout<<"line_mode:"<<f2<<" " << f1 <<" " << posX << " " << posY <<std::endl;
 }
-/** 指定线速度、角速度运行 * */
+
+/**
+ * @brief 差速运动学，将线速度，角速度转化为左右电机差速
+ * 
+ * @param linear 
+ * @param angular 
+ */
 void Jhr_moto::setSpeedRos(float linear,float angular)
 {
     if(work_mode != 0)return;   //0 为速度模式
@@ -149,6 +173,7 @@ void Jhr_moto::setSpeedRos(float linear,float angular)
     }
     is_ask = true;
 }
+
 float Jhr_moto::getX()
 {
     return posX * 0.001;
@@ -164,6 +189,7 @@ float Jhr_moto::getRadian()
 {
     return posRadian;
 }
+
 float Jhr_moto::getLinear()
 {
     return vLinear * 0.001;
@@ -172,6 +198,7 @@ float Jhr_moto::getAngular()
 {
     return vAngular;
 }
+
 /*void show_hex(const char* buf,int len,char*msg){
     char dat[20];
     std::stringstream sstream;
@@ -183,7 +210,12 @@ float Jhr_moto::getAngular()
     std::cout << sstream.str() << std::endl;
 }*/
 
-
+/**
+ * @brief 回调函数，计算里程计并发布
+ * 
+ * @param buff_r 
+ * @param iLen 
+ */
 void Jhr_moto::rcv_callback_1(const char*buff_r,int iLen)
 {
     MotoRcv *motoRcv = (MotoRcv*)buff_r;
@@ -194,10 +226,13 @@ void Jhr_moto::rcv_callback_1(const char*buff_r,int iLen)
         crc += buff_r[i];
     }
     if(crc == (unsigned char)buff_r[11] && motoRcv->head == 0x9bc2){
+        //$电机状态标识
         state = motoRcv->state;
+        //$ 记录左右电机两次回调的脉冲数只差。
         int dltL = motoRcv->lData -  lDistance;
         int dltR =  rDistance - motoRcv->rData;
         if(isFirst){
+            //￥ pulse_equivalent表示每个脉冲的弧度
             float fL = abs(dltL + dltR)/ pulse_equivalent;
             if(fL < 2000) isFirst = false;
             lDistance = motoRcv->lData;
@@ -212,6 +247,7 @@ void Jhr_moto::rcv_callback_1(const char*buff_r,int iLen)
                 vLinear = vLinear0;
                 vAngular = vAngular0;
             }
+            //￥ 计算机器人的偏航角，wheel_spacing表示轮间距
 	        float dTh = ((dR - dL)/ wheel_spacing);
             dL += dR;dL /= 2;
 	        if(dL < - 2000 || dL >2000){	//出现大的跳动属于错误
@@ -224,9 +260,11 @@ void Jhr_moto::rcv_callback_1(const char*buff_r,int iLen)
 		        sstream << "\r\n";
 		        jhr_file_record("/home/jhr/1.txt",sstream.str());
 	        }else{
+                //% 差速轮运动学解析
 		        posX += (dL * cosf(posRadian));
                 posY += (dL * sinf(posRadian));
 		        posRadian += dTh;
+
                 while(posRadian > 3.1416)posRadian -= 6.2832;
                 while(posRadian < -3.1416)posRadian += 6.2832;
                 odom_publish();
@@ -240,6 +278,11 @@ void Jhr_moto::rcv_callback_1(const char*buff_r,int iLen)
                     << (int)posY << "    A=" <<  i1<<  "                    \r"<<std::flush;*/
     }
 }
+
+/**
+ * @brief 电机控制回调函数，将控制参数通过udp发送至下位机
+ * 
+ */
 void Jhr_moto::moto_loop(void)
 {
     static unsigned char buff_s[]={0xc2,0x9a,0x01,0x00,0x00,0x00,0x18,0x00,0x00,0x00,0x00,0xff};
@@ -293,13 +336,17 @@ void Jhr_moto::moto_loop(void)
     buff_s[11] = crc;
     Jhr_udp::jhr_udp_arr[2]->send_data((const char *)buff_s,12);
 }
-/** 
-**/
+
+/**
+ * @brief cmd_vel回调函数，负责控制线速度，角速度。
+ * 
+ * @param geometry_msgs::Twist tw 
+ */
 void Jhr_moto::tw_callback(const geometry_msgs::Twist &tw)
 {
     float linear = tw.linear.x ;
     float angular = tw.angular.z;
-    int iType = tw.linear.y;
+    int iType = tw.linear.y;//默认是通过速度模式运行
     switch(iType)
     {
         case 30:    //原地旋转指定角度  tw.angular.y
@@ -308,18 +355,20 @@ void Jhr_moto::tw_callback(const geometry_msgs::Twist &tw)
         case 31:     //前进/后退指定距离  tw.angular.y
             Jhr_moto::setLineMode(tw.angular.y);
             break;
-        default:     //速度运行模式
+        default:     //%速度运行模式
             Jhr_moto::setSpeedRos(linear,angular);
             break;
     }
     //std::cout << "x:" << tw.linear.x<<"  a:"<< tw.angular.z <<std::endl;
 }
 
-/** 发布里程计TF坐标转换。
-**/
+/**
+ * @brief 里程计发布
+ * 
+ */
 void Jhr_moto::odom_publish(void){
     if(odom_pub_ptr == NULL)return;
-//static int iCnt = 0;    
+    //static int iCnt = 0;    
     // const float covariance[36] = {0.01, 0,      0,      0,      0,      0,
     //                              0,     0.01,   0,      0,      0,      0,
     //                              0,     0,      999999, 0,      0,      0,
@@ -341,8 +390,8 @@ void Jhr_moto::odom_publish(void){
     // odom_trans.transform.translation.y = y;
     // odom_trans.transform.translation.z = 0.0;
     // odom_trans.transform.rotation = odom_quat;
-    // odom_broadcaster->sendTransform(odom_trans);
-//￥ 发布里程机wheel_odom
+    // odom_broadcaster->sendTransform(odom_trans);//发布tf转换。
+    //￥ 发布里程机wheel_odom
     nav_msgs::Odometry odom;
     odom.header.stamp = curr_time;
     odom.header.frame_id = "wheel_odom_link";
@@ -354,9 +403,9 @@ void Jhr_moto::odom_publish(void){
     odom.pose.pose.position.z = 0.0;
     odom.pose.pose.orientation = odom_quat;
     odom.child_frame_id = "base_link";
-    odom.twist.twist.linear.x = Jhr_moto::getLinear();
+    odom.twist.twist.linear.x = Jhr_moto::getLinear();//获取线速度
     odom.twist.twist.linear.y = 0;
-    odom.twist.twist.angular.z = Jhr_moto::getAngular();
+    odom.twist.twist.angular.z = Jhr_moto::getAngular();//获取角速度
     odom_pub_ptr->publish(odom);
 
     // std::cout <<" th:" <<(int)(th*180/3.14)<<"  x:" <<(float)(th*180/3.14) <<"  y:" <<(float)(th*180/3.14) <<"\r         "<< std::flush;

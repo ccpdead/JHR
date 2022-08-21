@@ -31,6 +31,8 @@ typedef struct{
 class Jhr_moto
 {
 public:
+    //静态成员函数目的是访问静态成员变量。
+    //静态成员变量只有一个，无论多少个实例化对象，其所有对象共享一个静态成员变量
     static void moto_init(void);
     static void clear_error();  //清除驱动错误
     static void moto_lock();	//锁轮工作模式，马达停止时锁轮
@@ -57,6 +59,7 @@ public:
     static void setWheelSpacing(short w_s);
     static void setPulseEquivalent(float pulse_equivalent);
     static void jhr_file_record(const std::string file_name,const std::string msg,int index=0);
+    //￥ 主回调函数，负责里程计的计算与odom发布
     static void rcv_callback_1(const char*buf,int len);
     static void moto_loop();  //循环调用通讯函数
     static bool is_ask; //是否收到回复消息
@@ -74,14 +77,14 @@ public:
     static unsigned char state;
     static ros::Publisher *odom_pub_ptr;
     static tf::TransformBroadcaster *odom_broadcaster;
-    static short wheel_spacing;
-    static float pulse_equivalent;
+    static short wheel_spacing;//轮间距
+    static float pulse_equivalent;//脉冲弧度
     static float posX,posY,posRadian;
     static int work_mode;
     static void TurnMode_handle();
     static void LineMode_handle();
         
-    static unsigned char ac;
+    static unsigned char ac;// 加速度
     static unsigned char cmd;
     static unsigned char cmd_1;
     
