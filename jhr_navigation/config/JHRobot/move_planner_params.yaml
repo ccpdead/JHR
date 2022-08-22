@@ -1,41 +1,55 @@
 DWAPlannerROS:
 # 机器人本身参数：
-  acc_lim_x: 8      #(double, default:2.5) #x方向加速度的绝对值
-  acc_lim_y: 0.0      #(double, default:2.5) #y方向加速度的绝对值
-  acc_lim_th: 10     #(double, default:3.2) #旋转加速度的绝对值
   max_vel_trans: 1 #(double, default:0.55) #平移速度最大值绝对值
   min_vel_trans: 0.1  #(double, default:0.1) #平移速度最小值的绝对值
+
   max_vel_x: 2     #(double, default:0.55) #x方向最大速度的绝对值
   min_vel_x: -0.2      #(double, default:0.0) #x方向最小值绝对值，如果是负值表示后退运动
+
   max_vel_y: 0.0      #(double, default:0.1) #y方向最大速度的绝对值
   min_vel_y: 0.0      #(double, default:-0.1) #y方向最小速度的绝对值
-  max_rot_vel: 2.0    #(double, default:1.0) #最大旋转速度的绝对值
-  min_rot_vel: 0.3    #(double, default:0.4) #最小旋转速度的绝对值
+
+  max_vel_theta: 2.0    #(double, default:1.0) #最大旋转速度的绝对值
+  min_vel_theta: 0.3    #(double, default:0.4) #最小旋转速度的绝对值
+
+  acc_lim_x: 8      #(double, default:2.5) #x方向加速度的绝对值
+  acc_lim_y: 0.0      #(double, default:2.5) #y方向加速度的绝对值
+  acc_lim_theta: 4.0 #加速度限制
+  acc_lim_trans: 0.4 #加速度限制
 
 # 目标点容错参数：
-  yaw_goal_tolerance: 0.05        #(double, default:0.05) #到达目标点时偏航角误差
+  prune_plan: true             #(bool, default:true) #机器人前进时是否清除身后1m外的轨迹
   xy_goal_tolerance: 0.10         #(double, default:0.10) #到达目标点时，在xy平面内与目标点的距离误差
+  yaw_goal_tolerance: 0.05        #(double, default:0.05) #到达目标点时偏航角误差
   latch_xy_goal_tolerance: false  #(double, default:false) #设置为true时，如果到达容错距离内，则机器人就会原地旋转，即便转动时会跑出容错距离外
+  
+  trans_stopped_vel: 0.1 #最大刹车平移速度
+  theta_stopped_vel: 0.1 #最大刹车旋转速度
 
 # 前进仿真参数
   sim_time: 1.7               #(double, default:1.7) #向前仿真轨迹的时间
   sim_granularity: 0.025      #(double, default:0.025) #步长，轨迹上采样点之间的距离
-  vx_samples: 10               #(integer, default:3) #x方向速度空间的采样点数
-  vy_samples: 0              #(integer, default:10) #y方向速度空间采样点数
-  vth_samples: 10            #(integer, default:20) #旋转方向的速度空间采样点数
-  controller_frequency: 10    #(double, default:20.0) #控制器被调用的频率
-# 轨迹评分参数
+  angular_sim_granularity: 0.1
+
   path_distance_bias: 32.0    #(double, default:32.0) #定义控制器与给定路径接近程度
   goal_distance_bias: 30.0    #(double, default:24.0) #定义控制器与局部目标点的接近程度，并控制速度
   occdist_scale: 0.02         #(double, default:0.01) #定义控制器躲避障碍物的程度
-  forward_point_distance: 0.325 #(0.325)机器人中心点到放置附加得分点的距离，以米为单位
+  twirling_scale: 0.0
   stop_time_buffer: 0.1      #(double, default:0.2) #为防止碰撞，机器人必须提前停止的时间长度。
-  scaling_speed: 0.25        #(double, default:0.25) #启动机器人底座的速度
-  max_scaling_factor: 0.2     #(double, default:0.2) #最大缩放参数
 # 防震荡参数
   oscillation_reset_dist: 0.05 #(double, default:0.05) #机器人运动多远距离才会重置振荡标记
-# 全局参数
-  prune_plan: true             #(bool, default:true) #机器人前进时是否清除身后1m外的轨迹
+  oscillation_reset_angle: 0.2
+  forward_point_distance: 0.325 #(0.325)机器人中心点到放置附加得分点的距离，以米为单位
+  scaling_speed: 0.25        #(double, default:0.25) #启动机器人底座的速度
+  max_scaling_factor: 0.2     #(double, default:0.2) #最大缩放参数
+
+  vx_samples: 10               #(integer, default:3) #x方向速度空间的采样点数
+  vy_samples: 0              #(integer, default:10) #y方向速度空间采样点数
+  vth_samples: 7            #(integer, default:20) #旋转方向的速度空间采样点数
+
+  controller_frequency: 10    #(double, default:20.0) #控制器被调用的频率
+
+  
 
 ######################################################################################
 GlobalPlanner:                                 

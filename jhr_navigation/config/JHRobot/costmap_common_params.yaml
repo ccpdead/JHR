@@ -10,16 +10,16 @@ cost_scaling_factor: 10
 map_type: costmap
 
 #% 联合避障模式。
-# observation_sources: point_cloud_sensor
-# point_cloud_sensor: {
-#   sensor_frame: base_footprint,
-#   data_type: PointCloud2, 
-#   topic: /cloud_pcl, 
-#   expected_update_rate: 30, 
-#   marking: true, 
-#   clearing: true,
-#   min_obstacle_height: -5.0,
-#   max_obstacle_height: 5.0}
+observation_sources: point_cloud_sensor
+point_cloud_sensor: {
+  sensor_frame: base_link,
+  data_type: PointCloud2, 
+  topic: /fusion_cloud, 
+  expected_update_rate: 30, 
+  marking: true, 
+  clearing: true,
+  min_obstacle_height: -5.0,
+  max_obstacle_height: 5.0}
 
 
 # observation_sources: point_cloud_sensor
@@ -34,14 +34,14 @@ map_type: costmap
 #   max_obstacle_height: 5.0
 # }
 
-observation_sources: scan
-scan: {
-  sensor_frame: base_footprint,
-  data_type: LaserScan,
-  topic: /scan,
-  marking: true,
-  clearing: true,
-  min_obstacle_height: -5.0,
-  max_obstacle_height: 5.0,
-  expected_update_rate: 10
-  }
+# observation_sources: scan
+# scan: {
+#   sensor_frame: base_footprint,
+#   data_type: LaserScan,
+#   topic: /scan,
+#   marking: true,
+#   clearing: true,
+#   min_obstacle_height: -5.0,
+#   max_obstacle_height: 5.0,
+#   expected_update_rate: 10
+#   }
