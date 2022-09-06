@@ -9,7 +9,7 @@
   <!-- <node pkg="tf" type="static_transform_publisher" name="base_to_camera" args="0.165 0 0.22 0 0 0 base_link camera_link   30" /> -->
 
   <!-- Choose visualization -->
-  <arg name="rviz"                    default="true" />
+  <arg name="rviz"                    default="false" />
   <arg name="rtabmapviz"              default="true" /> 
   
   <!-- Localization-only mode -->
@@ -20,7 +20,8 @@
   <arg name="rviz_cfg"                default="$(find jhr_navigation)/rviz/rgbd.rviz" />
   
   <arg name="frame_id"                default="base_footprint"/>   <!-- Fixed frame id, you may set "base_link" or "base_footprint" if they are published -->
-  <arg name="database_path"           default="~/.ros/rtabmap.db"/>
+  <!-- <arg name="database_path"           default="~/.ros/rtabmap.db"/> -->
+  <arg name="database_path"           default="~/.ros/rtabmap-1.db"/>
   <arg name="rtabmap_args"            default="--delete_db_on_start"/>              <!-- delete_db_on_start, udebug -->
   <arg name="launch_prefix"           default=""/>              <!-- for debugging purpose, it fills launch-prefix tag of the nodes -->
   <arg name="approx_sync"             default="true"/>         <!-- if timestamps of the input topics are not synchronized -->
@@ -37,7 +38,7 @@
   <arg name="scan_cloud_topic"        default="/scan_cloud"/>
   
   <arg name="visual_odometry"         default="false"/>          <!-- Generate visual odometry -->
-  <arg name="icp_odometry"            default="false"/> 
+  <arg name="icp_odometry"            default="true"/> 
 
   <arg name="odom_topic"              default="rtabmap_odom"/>         Odometry topic used if visual_odometry is false
   <!-- <arg name="odom_topic"              default="/robot_pose_ekf/odom_combined"/> -->

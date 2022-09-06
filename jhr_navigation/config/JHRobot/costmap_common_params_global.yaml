@@ -1,21 +1,24 @@
 obstacle_range: 4.0
 raytrace_range: 4.0
 
-footprint: [[-0.25, -0.2], [-0.25, 0.2], [0.25, 0.2], [0.25, -0.2]]
-# robot_radius: 0.19
+# footprint: [[-0.3, -0.3], [-0.3, 0.3], [0.3, 0.3], [0.3, -0.3]]
+robot_radius: 0.26
 
-inflation_radius: 1
-cost_scaling_factor: 10
+#碰站半径
+inflation_radius: 0.7
+# 缩放因子
+cost_scaling_factor: 15
 
 map_type: costmap
 
 # observation_sources: point_cloud_sensor
 # point_cloud_sensor: {
-#   sensor_frame: base_footprint,
+#   sensor_frame: base_link,
 #   data_type: PointCloud2, 
-#   topic: /cloud_pcl, 
-#   expected_update_rate: 30, 
+#   topic: /fusion_cloud, 
+#   expected_update_rate: 10, 
 #   marking: true, 
 #   clearing: true,
 #   min_obstacle_height: -5.0,
-#   max_obstacle_height: 5.0}
+#   max_obstacle_height: 5.0
+#   }
