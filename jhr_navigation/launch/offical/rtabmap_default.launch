@@ -307,7 +307,7 @@
       <param name="expected_update_rate"        type="double" value="$(arg odom_expected_rate)"/>
       <param name="max_update_rate"             type="double" value="$(arg odom_max_rate)"/>
 
-      <!-- <param name ="Reg/Force3Dof"         type="bool" value="true"/> -->
+
 
     </node>
     
@@ -399,12 +399,18 @@
 
 
       <!--￥ 自定义参数-->
-      <param name ="Vis/FeatureType"       type="string" value="9" />
-      <param name ="Kp/DetectorStrategy"   type="string" value="9"/>
+      <!-- <param name ="Vis/FeavtureType"       type="string" value="10" /> -->
+      <!--这个更改rtabmap 回环检测的特征点特征
+      8-GFIT/ORB,9-KAZE,10-ORB_OCTREE
+      -->
+      <param name ="Kp/DetectorStrategy"   type="string" value="8"/>
+      <param name="Vis/MaxDepth" value="5"/>
+      <param name="Vis/MinDepth" value="0.3"/>
       
-      <param name ="Reg/Force3Dof"         type="bool" value="true"/>
-      <param name ="Reg/Strategy"          type="string" value="2"/>
-      <param name ="Mem/UseOdomFeatures"   type="bool" value="false"/>
+      
+      <param name="Reg/Force3DoF"           value="true"/>
+      <param name ="Reg/Strategy"           value="2"/>
+      <param name ="Mem/UseOdomFeatures"    value="false"/>
 
       <!-- ICP parameters -->
       <param name="Icp/VoxelSize"                 type="string" value="0.05"/>
