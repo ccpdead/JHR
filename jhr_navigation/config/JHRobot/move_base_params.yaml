@@ -9,9 +9,10 @@
 
 recovery_behaviors: 
 - {name: aggressive_reset, type: "clear_costmap_recovery/ClearCostmapRecovery"}
+- {name: conservative_reset, type: "clear_costmap_recovery/ClearCostmapRecovery"}
 
 
-controller_frequency: 20.0 #(double, default:20.0) #控制循环的执行频率，也可认为是速度发布指令的频率
+controller_frequency: 10.0 #(double, default:20.0) #控制循环的执行频率，也可认为是速度发布指令的频率
 planner_patience: 15.0 #(double, default:5.0) #规划器在空间清除操作前,能够进行路径规划的时间
 conservative_reset_dist: 2.0 #(double, default:3.0) #当在地图中清理出空间时，距离机器人几米远的障碍会从代价地图中清除
 recovery_behavior_enabled: true #(bool, default:true) #是否启用move_base修复机制
@@ -25,9 +26,9 @@ max_planning_retries: -1 #(int32, default:-1) #在执行修复操作前，允许
 #配置movebase的路径规划插件
 #注意，在global_planner中可以使用A*算法或者D算法
 #base_global_planner: navfn/NavfnROS 
-base_global_planner: global_planner/GlobalPlanner 
+base_global_planner: "global_planner/GlobalPlanner" 
 #base_global_planner: carrot_planner/CarrotPlanner 
 
-base_local_planner: dwa_local_planner/DWAPlannerROS 
+base_local_planner: "dwa_local_planner/DWAPlannerROS" 
 #base_local_planner: base_local_planner/TrajectoryPlannerROS 
 #base_local_planner: teb_local_planner/TebLocalPlannerROS 
