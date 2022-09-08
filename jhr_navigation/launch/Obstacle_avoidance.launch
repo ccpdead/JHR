@@ -19,7 +19,7 @@
       <node pkg="nodelet" type="nodelet" name="obstacles_detection" args="standalone rtabmap_ros/obstacles_detection">
          <remap from="cloud" to="/sunny_topic/tof_frame/pointcloud"/>
 
-         <param name="frame_id" type="string" value="base_footprint"/>
+         <param name="frame_id" type="string" value="base_laser_link"/>
          <param name="Grid/MaxGroundAngle" value="20"/>
          
          <param name="Grid/MinClusterSize" type="int" value="20"/>

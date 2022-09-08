@@ -7,7 +7,9 @@
 #{name:aggressive_reset,type:clear_costmap_recovery/ClearCostmapRecovery}
 #用于move_base修复的插件列表，当move_base找不到可行的路径规划方案时，move_base将按照这些顺序执行操作。每个操作执行完后，move_base会在此尝试生成路径规划方案，如果成功，则继续正常操作；否则，启动下一个修复操作。
 
-# recovery_behaviors: aggressive_reset
+recovery_behaviors: 
+- {name: aggressive_reset, type: "clear_costmap_recovery/ClearCostmapRecovery"}
+
 
 controller_frequency: 20.0 #(double, default:20.0) #控制循环的执行频率，也可认为是速度发布指令的频率
 planner_patience: 15.0 #(double, default:5.0) #规划器在空间清除操作前,能够进行路径规划的时间

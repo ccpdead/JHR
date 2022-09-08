@@ -9,8 +9,8 @@
   <!-- <node pkg="tf" type="static_transform_publisher" name="base_to_camera" args="0.165 0 0.22 0 0 0 base_link camera_link   30" /> -->
 
   <!-- Choose visualization -->
-  <arg name="rviz"                    default="false" />
-  <arg name="rtabmapviz"              default="true" /> 
+  <arg name="rviz"                    default="true" />
+  <arg name="rtabmapviz"              default="false" /> 
   
   <!-- Localization-only mode -->
   <arg name="localization"            default="false"/>

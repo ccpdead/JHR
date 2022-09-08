@@ -18,10 +18,10 @@
     <!-- <node name="vio_odom" pkg="vio_odom" type="vio_odom" output="screen"/> -->
 
     <!--% TOC Camera -->
-    <!-- <include file ="$(find tof_dev_sdk_demo)/launch/launchfile_sample.launch"></include>  -->
+    <include file ="$(find tof_dev_sdk_demo)/launch/launchfile_sample.launch"></include> 
     
     <!--% 对点云数据进行分割与剔除,来检测地面突出的障碍物信息 -->
-    <!-- <include file="$(find jhr_navigation)/launch/Obstacle_avoidance.launch" > </include> -->
+    <include file="$(find jhr_navigation)/launch/Obstacle_avoidance.launch" > </include>
     
     <!--%融合激光和TOF光-->
     <!-- <include file="$(find lidar_pointcloud)/launch/lidar_and_tof_fusion.launch"></include> -->

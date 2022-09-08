@@ -71,6 +71,7 @@
       <param name="RGBD/ProximityBySpace"     type="string" value="true"/>
       <param name="RGBD/AngularUpdate"        type="string" value="0.01"/>
       <param name="RGBD/LinearUpdate"         type="string" value="0.01"/>
+      
       <param name="RGBD/OptimizeFromGraphEnd" type="string" value="false"/>
       <param name="Grid/FromDepth"            type="string" value="false"/> <!-- occupancy grid from lidar -->
       <param name="Reg/Force3DoF"             type="string" value="true"/>

@@ -404,24 +404,36 @@
       8-GFIT/ORB,9-KAZE,10-ORB_OCTREE
       -->
       <param name ="Kp/DetectorStrategy"   type="string" value="8"/>
+      <!--设置运动估计的范围-->
       <param name="Vis/MaxDepth" value="5"/>
-      <param name="Vis/MinDepth" value="0.3"/>
+      <param name="Vis/MinDepth" value="0.2"/>
+      <!--设置提取特征点检测的距离-->
+      <param name="Kp/MaxDepth" value="5"/>
+      <param name="Kp/MinDepth" value="0.2"/>
+      <param name="DbSqlite3/InMemory" value="true"/>
+      
+      
       
       
       <param name="Reg/Force3DoF"           value="true"/>
-      <param name ="Reg/Strategy"           value="2"/>
+      <param name ="Reg/Strategy"           value="1"/><!--运动估计-->
       <param name ="Mem/UseOdomFeatures"    value="false"/>
+      <param name="Mem/NotLinkedNodesKept" type="string" value="false"/> <!-- 设置为 false 以避免在机器人不移动时保存数据 -->
+      <param name="Grid/3D" value="false"/>
+      
 
       <!-- ICP parameters -->
       <param name="Icp/VoxelSize"                 type="string" value="0.05"/>
       <param name="Icp/MaxCorrespondenceDistance" type="string" value="0.1"/>
+      <!--$自定义参数-->
+
 
       <!-- localization mode -->
       <param     if="$(arg localization)" name="Mem/IncrementalMemory" type="string" value="false"/>
       <param unless="$(arg localization)" name="Mem/IncrementalMemory" type="string" value="true"/>
       <param name="Mem/InitWMWithAllNodes" type="string" value="$(arg localization)"/>
     </node>
-  
+  <!--$rtabmap-->
     <!-- Visualisation RTAB-Map -->
     <node if="$(arg rtabmapviz)" pkg="rtabmap_ros" type="rtabmapviz" name="rtabmapviz" args="-d $(arg gui_cfg)" clear_params="$(arg clear_params)" output="$(arg output)" launch-prefix="$(arg launch_prefix)">
       <param     if="$(arg stereo)" name="subscribe_depth"  type="bool" value="false"/>

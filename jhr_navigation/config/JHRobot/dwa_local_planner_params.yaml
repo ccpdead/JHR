@@ -55,8 +55,15 @@ DWAPlannerROS:
 GlobalPlanner:                                 
   allow_unknown: false        #(bool, default:true) #是否允许规划器规划穿过未知区域的路径
   default_tolerance: 0.0     #(double, default:0.0) #路径规划器规划出的终点容错距离
-  visualize_potential: true #(bool, default:false) #是否显示从PointCloud2计算得到的势区域
+  visualize_potential: false #(bool, default:false) #是否显示从PointCloud2计算得到的势区域
   use_dijkstra: true         #(bool, default:true) #如果设置为true，则使用dijkstra算法，否则使用A*算法
   use_quadratic: true        #(bool, default:true) #如果设置为true，使用二次函数近似势函数。否则使用更加简单的计算方式
   use_grid_path: false       #(bool, default:false) #如果设置为true，则创建一条沿着网格边界的路径，否则使用梯度下降法。
   old_navfn_behavior: false  #(bool, default:false) #如果出于某些原因，你想让global_planner完全复制navfn的行为，则设置为true
+  
+  lethal_cost: 253  # 致死成本
+  neutral_cost: 50 # 中性成本
+  cost_factor: 3  # 成本因素
+  publish_potential: true # 出版潜力
+  orientation_mode: 0 # 定向方式
+  orientation_window_size: 1 #方向窗口大小

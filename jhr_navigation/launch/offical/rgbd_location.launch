@@ -17,11 +17,11 @@
   
   <!-- Corresponding config files -->
   <arg name="rtabmapviz_cfg"          default="~/.ros/rtabmap_gui.ini" />
-  <arg name="rviz_cfg"                default="$(find jhr_navigation)/rviz/rtabmap.rviz" />
+  <arg name="rviz_cfg"                default="$(find jhr_navigation)/rviz/rtabmap_nav.rviz" />
   
   <arg name="frame_id"                default="base_footprint"/>   <!-- Fixed frame id, you may set "base_link" or "base_footprint" if they are published -->
-  <arg name="database_path"           default="~/.ros/rtabmap.db"/>
-  <!-- <arg name="database_path"           default="~/.ros/rtabmap-1.db"/> -->
+  <!-- <arg name="database_path"           default="~/.ros/rtabmap.db"/> -->
+  <arg name="database_path"           default="~/.ros/rtabmap-2.db"/>
 
   <arg name="rtabmap_args"            default=""/>              <!-- delete_db_on_start, udebug -->
   <arg name="launch_prefix"           default=""/>              <!-- for debugging purpose, it fills launch-prefix tag of the nodes -->
@@ -49,7 +49,7 @@
   
    
   <arg name="namespace"               default="rtabmap"/>
-  <arg name="wait_for_transform"      default="0.5"/>
+  <arg name="wait_for_transform"      default="1"/>
   
   <include file="$(find jhr_navigation)/launch/offical/rtabmap_default.launch">
     <arg name="rtabmapviz"              value="$(arg rtabmapviz)" /> 
