@@ -4,15 +4,18 @@ global_costmap:
 
   update_frequency: 1
   publish_frequency: 1
-  
+
   track_unknown_space: true
   rolling_window: false
-  transform_tolerance: 10  
+  transform_tolerance: 10
   resolution: 0.05
 
   # static_map: true
 
   plugins:
-  - {name: static_layer,     type: "costmap_2d::StaticLayer"}
-  - {name: obstacle_layer,     type: "costmap_2d::VoxelLayer"}
-  - {name: inflation_layer,  type: "costmap_2d::InflationLayer"}
+    # 静态层
+    - { name: static_layer, type: "costmap_2d::StaticLayer" }
+    # 障碍层
+    - { name: obstacle_layer, type: "costmap_2d::VoxelLayer" }
+    # 膨胀层
+    - { name: inflation_layer, type: "costmap_2d::InflationLayer" }

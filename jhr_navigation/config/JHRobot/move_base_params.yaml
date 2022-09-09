@@ -1,15 +1,11 @@
-# base_global_planner： #(string, default:"navfn/NavfnROS") #指定用于move_base的全局规划器插件名称
-# base_local_planner： #(string, default:"base_local_planner/TrajectoryPlannerROS") #指定用于move_base的局部规划器名称
-
-#list, default:
 #{name:conservative_reset, type:clear_costmap_recovery/ClearCostmapRecovery},
 #{name:rotate_recovery,type:rotate_recovery/RotateRecovery},
 #{name:aggressive_reset,type:clear_costmap_recovery/ClearCostmapRecovery}
-#用于move_base修复的插件列表，当move_base找不到可行的路径规划方案时，move_base将按照这些顺序执行操作。每个操作执行完后，move_base会在此尝试生成路径规划方案，如果成功，则继续正常操作；否则，启动下一个修复操作。
 
+# 恢复模式下执行的操作
 recovery_behaviors: 
 - {name: aggressive_reset, type: "clear_costmap_recovery/ClearCostmapRecovery"}
-- {name: conservative_reset, type: "clear_costmap_recovery/ClearCostmapRecovery"}
+# - {name: conservative_reset, type攻击: "clear_costmap_recovery/ClearCostmapRecovery"}
 - {name: rotate_recovery, type: "rotate_recovery/RotateRecovery"}
 
 
@@ -25,11 +21,10 @@ planner_frequency: 1.0 #(double, default:0.0) #全局规划操作的执行频率
 max_planning_retries: -1 #(int32, default:-1) #在执行修复操作前，允许规划器重新规划路径的次数，-1.0表示无限多次重新尝试
 
 #配置movebase的路径规划插件
-#注意，在global_planner中可以使用A*算法或者D算法
 #base_global_planner: navfn/NavfnROS 
-base_global_planner: "global_planner/GlobalPlanner" 
+base_global_planner: global_planner/GlobalPlanner 
 #base_global_planner: carrot_planner/CarrotPlanner 
 
-base_local_planner: "dwa_local_planner/DWAPlannerROS" 
+base_local_planner: dwa_local_planner/DWAPlannerROS 
 #base_local_planner: base_local_planner/TrajectoryPlannerROS 
 #base_local_planner: teb_local_planner/TebLocalPlannerROS 
