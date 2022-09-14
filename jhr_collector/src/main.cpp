@@ -31,11 +31,11 @@ int main(int argc,char**argv)
     n_ptr = &n;
     //$ 当收到cmd_node后，将进入jhr_moto::tw_callback()函数进行处理，通过差速运动学得到rSpeed_r，lSpeed_r
     ros::Subscriber tw_sub = n.subscribe(cmd_node,1,Jhr_moto::tw_callback);
-    ros::Publisher odom_pub =  n.advertise<nav_msgs::Odometry>("wheel_odom", 100);
+    ros::Publisher odom_pub =  n.advertise<nav_msgs::Odometry>("wheel_odom", 1000);
     Jhr_moto::odom_pub_ptr = &odom_pub;
     
     Jhr_moto::odom_broadcaster = new tf::TransformBroadcaster();
-    ros::Rate loop_rate(30); 
+    ros::Rate loop_rate(100); 
     Jhr_udp::udp_poll_init(dev_ip.c_str());
     Jhr_udp::jhr_udp_arr[0]->set_rcv_callback(NULL);
     Jhr_udp::jhr_udp_arr[1]->set_rcv_callback(NULL);
