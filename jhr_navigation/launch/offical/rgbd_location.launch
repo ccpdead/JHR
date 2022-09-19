@@ -10,7 +10,7 @@
 
   <!-- Choose visualization -->
   <arg name="rviz"                    default="true" />
-  <arg name="rtabmapviz"              default="true" /> 
+  <arg name="rtabmapviz"              default="false" /> 
   
   <!--$ Localization-only mode -->
   <arg name="localization"            default="true"/>
@@ -42,7 +42,7 @@
   <arg name="icp_odometry"            default="true"/> 
   <!--￥ 使用激光或视觉里程机-->
   <arg name="odom_topic"              default="rtabmap_odom"/>         
-  <arg name="odom_frame_id"           default="base_footprint"/>
+  <arg name="odom_frame_id"           default=""/>
 
   <!--￥ 使用轮式里程机-->
   <!-- <arg name="odom_topic"              default="/robot_pose_ekf/odom_combined"/> -->
