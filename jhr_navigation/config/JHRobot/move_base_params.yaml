@@ -5,7 +5,7 @@
 # 恢复模式下执行的操作
 recovery_behaviors: 
 - {name: aggressive_reset, type: "clear_costmap_recovery/ClearCostmapRecovery"}
-# - {name: conservative_reset, type攻击: "clear_costmap_recovery/ClearCostmapRecovery"}
+# - {name: conservative_reset, type: "clear_costmap_recovery/ClearCostmapRecovery"}
 - {name: rotate_recovery, type: "rotate_recovery/RotateRecovery"}
 
 
@@ -24,7 +24,7 @@ max_planning_retries: -1 #(int32, default:-1) #在执行修复操作前，允许
 #base_global_planner: navfn/NavfnROS 
 base_global_planner: global_planner/GlobalPlanner 
 #base_global_planner: carrot_planner/CarrotPlanner 
-
+# 局部路径插件
 base_local_planner: dwa_local_planner/DWAPlannerROS  
 #base_local_planner: base_local_planner/TrajectoryPlannerROS 
 #base_local_planner: teb_local_planner/TebLocalPlannerROS 

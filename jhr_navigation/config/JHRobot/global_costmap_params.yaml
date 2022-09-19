@@ -1,5 +1,8 @@
+# 全局costmap
 global_costmap:
+  # 全局costmap参考坐标系
   global_frame: map
+  # 机器人参考坐标系
   robot_base_frame: base_footprint
 
   update_frequency: 1
@@ -12,6 +15,7 @@ global_costmap:
 
   # static_map: true
 
+  # 配置图层插件
   plugins:
     # 静态层
     - { name: static_layer, type: "costmap_2d::StaticLayer" }

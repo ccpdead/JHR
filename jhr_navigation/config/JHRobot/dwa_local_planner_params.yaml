@@ -51,7 +51,7 @@ DWAPlannerROS:
   scaling_speed: 0.25 #(double, default:0.25) #启动机器人底座的速度
   max_scaling_factor: 0.2 #(double, default:0.2) #最大缩放参数
 
-######################################################################################
+#%-----------------------------------------------------------------------------
 GlobalPlanner:
   allow_unknown: false #(bool, default:true) #是否允许规划器规划穿过未知区域的路径
   default_tolerance: 0.0 #(double, default:0.0) #路径规划器规划出的终点容错距离

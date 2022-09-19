@@ -1,8 +1,7 @@
 # footprint: [[-0.3, -0.25], [-0.3, 0.25], [0.3, 0.25], [0.3, -0.25]]
-
 robot_radius: 0.26
-
 map_type: costmap
+
 #膨胀层参数设置
 inflation_laer:
   inflation_radius: 0.26 #膨胀半径
