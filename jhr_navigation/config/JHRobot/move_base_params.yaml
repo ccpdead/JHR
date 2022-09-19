@@ -25,6 +25,6 @@ max_planning_retries: -1 #(int32, default:-1) #在执行修复操作前，允许
 base_global_planner: global_planner/GlobalPlanner 
 #base_global_planner: carrot_planner/CarrotPlanner 
 
-base_local_planner: dwa_local_planner/DWAPlannerROS 
+base_local_planner: dwa_local_planner/DWAPlannerROS  
 #base_local_planner: base_local_planner/TrajectoryPlannerROS 
 #base_local_planner: teb_local_planner/TebLocalPlannerROS 
