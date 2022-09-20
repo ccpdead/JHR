@@ -48,7 +48,7 @@
     <!-- <node pkg="tf" type="static_transform_publisher" name="base_footprint_to_recharge" args="1.214 0.015 0 0 0 0.067  b ase_footprint recharge_link2   30" />  -->
     
     <!--% 扩展卡尔慢滤波-->
-    <!--include file="$(find jhr_localization)/launch/robot_pose_ekf.launch" > </include--> 
+    <include file="$(find jhr_localization)/launch/robot_pose_ekf.launch" > </include>
 
     <!--% 启动键盘控制-->
     <!-- <include file="$(find jhr_teleop)/launch/mbot_teleop.launch" > </include> -->
