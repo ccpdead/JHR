@@ -1,7 +1,7 @@
 # 局部costmap
 local_costmap:
   # 局部costmap参考坐标系
-  global_frame: rtabmap_odom
+  global_frame: map #rtabmap_odom
   # 机器人参考坐标系
   robot_base_frame: base_footprint
 

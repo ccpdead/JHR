@@ -31,12 +31,12 @@
     <!-- <remap from="cmd_vel" to="/cmd_vel"/> -->
 
     <!--$ 使用轮式里程机-->
-    <!-- <remap from="odom" to="/robot_pose_ekf/odom_combined"/> -->
+    <remap from="odom" to="/robot_pose_ekf/odom_combined"/>
     <param name="frame_id" value="base_footprint" />
     
     <!--￥ 使用激光里程机-->
-    <remap from="odom"     to="/rtabmap_odom"/>
-    <param name="frame_id" value="rtabmap_odom"/>
+    <!-- <remap from="odom"     to="/rtabmap_odom"/> -->
+    <!-- <param name="frame_id" value="rtabmap_odom"/> -->
 
     <remap from="scan" to="/scan"/>
     <remap from="map"  to="$(arg map_type)"/>
