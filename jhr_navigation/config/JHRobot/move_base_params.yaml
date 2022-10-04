@@ -4,9 +4,12 @@
 
 # 恢复模式下执行的操作
 recovery_behaviors: 
-- {name: aggressive_reset, type: "clear_costmap_recovery/ClearCostmapRecovery"}
-# - {name: conservative_reset, type: "clear_costmap_recovery/ClearCostmapRecovery"}
-- {name: rotate_recovery, type: "rotate_recovery/RotateRecovery"}
+- name: 'aggressive_reset'
+  type: 'clear_costmap_recovery/ClearCostmapRecovery'
+# - name: 'conservative_reset'
+#   type: 'clear_costmap_recovery/ClearCostmapRecovery'
+- name: 'rotate_recovery'
+  type: 'rotate_recovery/RotateRecovery'
 
 
 controller_frequency: 10.0 #(double, default:20.0) #控制循环的执行频率，也可认为是速度发布指令的频率
