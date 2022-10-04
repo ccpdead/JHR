@@ -73,11 +73,12 @@ void Jhr_moto_hls::rcv_callback_1(const char *buff_r, int iLen)
     if (*(unsigned short *)szCrc == crc16) //校验？？
     {
         unsigned int iAddr = *(unsigned int *)(&buff_r[2]);
-        if (buff_r[1] == 0x43)//读指令返回值
-        { //读取数据
+        if (buff_r[1] == 0x43) //读指令返回值
+        {                      //读取数据
             switch (iAddr)
             {
             case 0x00510050: //读电机转速
+                std::cout << "读电机转速" << std::endl;
                 lSpeed_r = chg_big_small(&buff_r[6]);
                 rSpeed_r = chg_big_small(&buff_r[8]);
                 Jhr_moto::vLinear = (lSpeed_r - rSpeed_r) * 50.0f / Jhr_moto::pulse_equivalent;
@@ -93,6 +94,7 @@ void Jhr_moto_hls::rcv_callback_1(const char *buff_r, int iLen)
                 // }
                 break;
             case 0x15511550: //读取编码器
+                std::cout << "读编码器" << std::endl;
                 lCode_r = chg_big_small(&buff_r[6]);
                 rCode_r = chg_big_small(&buff_r[8]);
                 calcOdom(); //里程计估计
@@ -101,8 +103,8 @@ void Jhr_moto_hls::rcv_callback_1(const char *buff_r, int iLen)
                 break;
             }
         }
-        else if (buff_r[1] == 0x44)//写指令返回值
-        { //设置数据
+        else if (buff_r[1] == 0x44) //写指令返回值
+        {                           //设置数据
             switch (iAddr)
             {
             case 0x00310021:;
@@ -114,7 +116,7 @@ void Jhr_moto_hls::rcv_callback_1(const char *buff_r, int iLen)
     }
     else
     {
-        std::cout << "CRC 错误"  << std::endl;
+        std::cout << "CRC 错误" << std::endl;
     }
     moto_loop_pri();
 }
