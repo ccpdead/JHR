@@ -1,9 +1,9 @@
 DWAPlannerROS:
   # 机器人本身参数：
-  max_vel_trans: 0.8 #(double, default:0.55) #平移速度最大值绝对值
+  max_vel_trans: 0.5 #(double, default:0.55) #平移速度最大值绝对值
   min_vel_trans: 0.1 #(double, default:0.1) #平移速度最小值的绝对值
 
-  max_vel_x: 1 #(double, default:0.55) #x方向最大速度的绝对值
+  max_vel_x: 0.5 #(double, default:0.55) #x方向最大速度的绝对值
   min_vel_x: 0.0 #(double, default:0.0) #x方向最小值绝对值，如果是负值表示后退运动
 
   max_vel_y: 0.0 #(double, default:0.1) #y方向最大速度的绝对值
@@ -12,7 +12,7 @@ DWAPlannerROS:
   max_vel_theta: 1.0 #(double, default:1.0) #最大旋转速度的绝对值
   min_vel_theta: 0.4 #(double, default:0.4) #最小旋转速度的绝对值
 
-  acc_lim_x: 8 #(double, default:2.5) #x方向加速度的绝对值
+  acc_lim_x: 4 #(double, default:2.5) #x方向加速度的绝对值
   acc_lim_y: 0.0 #(double, default:2.5) #y方向加速度的绝对值
 
   acc_lim_theta: 5.0 #加速度限制
