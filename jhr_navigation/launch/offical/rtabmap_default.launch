@@ -403,12 +403,12 @@
       <!--这个更改rtabmap 回环检测的特征点特征
       8-GFIT/ORB,9-KAZE,10-ORB_OCTREE
       -->
-      <param name ="Kp/DetectorStrategy"   type="string" value="8"/>
+      <param name ="Kp/DetectorStrategy"   type="string" value="10"/>
       <!--设置运动估计的范围-->
-      <param name="Vis/MaxDepth" value="5"/>
+      <param name="Vis/MaxDepth" value="10"/>
       <param name="Vis/MinDepth" value="0.2"/>
       <!--设置提取特征点检测的距离-->
-      <param name="Kp/MaxDepth" value="5"/>
+      <param name="Kp/MaxDepth" value="10"/>
       <param name="Kp/MinDepth" value="0.2"/>
       <param name="DbSqlite3/InMemory" value="true"/>
       

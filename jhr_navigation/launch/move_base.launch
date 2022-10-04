@@ -31,7 +31,7 @@
     <!-- <remap from="cmd_vel" to="/cmd_vel"/> -->
 
     <!--$ 使用轮式里程机-->
-    <remap from="odom" to="/robot_pose_ekf/odom_combined"/>
+    <remap from="odom" to="/wheel_odom"/>
     <param name="frame_id" value="base_footprint" />
     
     <!--￥ 使用激光里程机-->

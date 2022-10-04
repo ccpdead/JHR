@@ -21,7 +21,7 @@
   
   <arg name="frame_id"                default="base_footprint"/>   <!-- Fixed frame id, you may set "base_link" or "base_footprint" if they are published -->
   <!-- <arg name="database_path"           default="~/.ros/rtabmap.db"/> -->
-  <arg name="database_path"           default="~/.ros/rtabmap-2.db"/>
+  <arg name="database_path"           default="~/.ros/rtabmap-1.db"/>
 
   <arg name="rtabmap_args"            default=""/>              <!-- delete_db_on_start, udebug -->
   <arg name="launch_prefix"           default=""/>              <!-- for debugging purpose, it fills launch-prefix tag of the nodes -->
