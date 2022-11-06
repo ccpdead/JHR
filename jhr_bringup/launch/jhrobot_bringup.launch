@@ -1,57 +1,56 @@
 <launch>
 
-    <!--%地盘控制启动-->
-    <include file="$(find jhr_collector)/launch/jhr_collector.launch" > </include>
-    <!--%线性速度控制启动-->
-    <include file="$(find yocs_velocity_smoother)/launch/standalone.launch" > </include>
-    <!--%IMU模块启动-->
-    <!-- <include file="$(find jhr_imu)/launch/jhr_imu.launch" > </include> -->
-    <!--%激光雷达启动-->
-    <include file="$(find pavo_ros)/launch/pavo_scan.launch" > </include>
+    <!--地盘控制启动-->
+    <include file="$(find jhr_collector)/launch/jhr_collector.launch"></include>
+    <!--线性速度控制启动-->
+    <include file="$(find yocs_velocity_smoother)/launch/standalone.launch"></include>
+    <!--IMU模块启动-->
+    <!-- <include file="$(find jhr_imu)/launch/jhr_imu.launch"> </include> -->
+    <!--激光雷达启动-->
+    <include file="$(find pavo_ros)/launch/pavo_scan.launch"></include>
 
-    <!--% 相机模式选择-->
-    <!-- <include file="$(find realsense2_camera)/launch/rs_aligned_depth.launch" > </include> -->
-    <include file="$(find realsense2_camera)/launch/rs_aligned_infra_depth.launch" > </include>
-    <!-- <include file="$(find realsense2_camera)/launch/rs_stereo.launch" ></include> -->
+    <!-- 相机模式选择-->
+    <!-- <include file="$(find realsense2_camera)/launch/rs_aligned_depth.launch"> </include> -->
+    <include file="$(find realsense2_camera)/launch/rs_aligned_infra_depth.launch"></include>
+    <!-- <include file="$(find realsense2_camera)/launch/rs_stereo.launch"></include> -->
 
-    <!-- % 对rtabmap vio里程计进行滤波处理-->
+    <!--  对rtabmap vio里程计进行滤波处理-->
     <!-- <node name="vio_odom" pkg="vio_odom" type="vio_odom" output="screen"/> -->
 
-    <!--% TOC Camera -->
-    <include file ="$(find tof_dev_sdk_demo)/launch/launchfile_sample.launch"></include> 
-    
-    <!--% 对点云数据进行分割与剔除,来检测地面突出的障碍物信息 -->
-    <include file="$(find jhr_navigation)/launch/Obstacle_avoidance.launch" > </include>
-    
-    <!--%融合激光和TOF光-->
+    <!-- TOC Camera -->
+    <include file ="$(find tof_dev_sdk_demo)/launch/launchfile_sample.launch"></include>
+
+    <!-- 对点云数据进行分割与剔除,来检测地面突出的障碍物信息 -->
+    <include file="$(find jhr_navigation)/launch/Obstacle_avoidance.launch"></include>
+
+    <!--融合激光和TOF光-->
     <!-- <include file="$(find lidar_pointcloud)/launch/lidar_and_tof_fusion.launch"></include> -->
-    
-    <!--% rtabmap——纯视觉测试-->
+
+    <!-- rtabmap——纯视觉测试-->
     <!-- <node pkg="tf" type="static_transform_publisher" name="laser_to_camera" args="0.06 0 -0.07 0 0.262 0 camera_link base_laser_link   30" /> -->
     <!-- <node pkg="tf" type="static_transform_publisher" name="base_to_camera" args="0.165 0 0.22 0 -0.262 0 base_link camera_link   30" /> -->
 
-    <!--% 雷达视觉测试-->
+    <!-- 雷达视觉测试-->
     <node pkg="tf" type="static_transform_publisher" name="base_footprint" args="0 0 0.25 0 0 0  base_footprint  base_link   100" />
-    <node pkg="tf" type="static_transform_publisher" name="base_to_laser"  args="0.21 0 0.085 0 0 0 base_link base_laser_link 100" />
-    <!-- <node pkg="tf" type="static_transform_publisher" name="base_to_imu"    args="0 0 0    0 0 0 base_link base_imu_link   30" /> -->
-
+    <node pkg="tf" type="static_transform_publisher" name="base_to_laser" args="0.21 0 0.085 0 0 0 base_link base_laser_link 100" />
+    <!-- <node pkg="tf" type="static_transform_publisher" name="base_to_imu" args="0 0 0    0 0 0 base_link base_imu_link   30" /> -->
+    <!-- <node pkg="tf" type="static_transform_publisher" name="laser_to_laser" args="0 0 0 0 0 0 base_laser_link scanmatcher_frame 100" /> -->
 
     <!-- <node pkg="tf" type="static_transform_publisher" name="base_to_camera" args="0.165 0 0.22 0 -0.262 0 base_link camera_link   30" /> -->
-    
-    <!--% 相机立放-->
+
+    <!-- 相机立放-->
     <node pkg="tf" type="static_transform_publisher" name="base_to_camera" args="0.165 0.04 0.22  0 0 -1.57 base_link camera_link   100" />
-    
+
     <node pkg="tf" type="static_transform_publisher" name="laser_to_tof_camera" args="0.045 0.0  -0.035 1.57 3.14 1.57 base_laser_link camera_point_cloud   100" />
-    
-    <!--% 充电测试-->
+
+    <!-- 充电测试-->
     <!-- <node pkg="tf" type="static_transform_publisher" name="camera_to_recharge" args="1.05 0.015 0  0 0 0.067 camera_link recharge_link   30" /> -->
     <!-- <node pkg="tf" type="static_transform_publisher" name="base_footprint_to_recharge" args="1.214 0.015 0 0 0 0.067  b ase_footprint recharge_link2   30" />  -->
-    
-    <!--% 扩展卡尔慢滤波-->
-    <include file="$(find jhr_localization)/launch/robot_pose_ekf.launch" > </include>
 
-    <!--% 启动键盘控制-->
-    <!-- <include file="$(find jhr_teleop)/launch/mbot_teleop.launch" > </include> -->
+    <!-- 扩展卡尔慢滤波-->
+    <!-- <include file="$(find jhr_localization)/launch/robot_pose_ekf.launch"> </include> -->
+
+    <!-- 启动键盘控制-->
+    <!-- <include file="$(find jhr_teleop)/launch/mbot_teleop.launch"> </include> -->
 
 </launch>
- 

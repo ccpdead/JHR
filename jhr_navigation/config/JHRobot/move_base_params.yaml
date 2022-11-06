@@ -20,7 +20,7 @@ clearing_rotation_allowed: false #(bool, default:true) #在清除空间操作时
 shutdown_costmaps: false #(bool, default:false) #当move_base不活动时，是否关闭costmaps
 oscillaiton_timeout: 5 #(double, default:0.0) #执行修复机制前，允许振荡的时长
 oscillation_distance: 0.5 #(double, default:0.5) #来回运动在多大距离以上不会被认为是振荡
-planner_frequency: 1.0 #(double, default:0.0) #全局规划操作的执行频率。如果设置为0.0，则全局规划器仅在接收到新的目标点或者局部规划器报告路径堵塞时才会重新执行规划操作
+planner_frequency: 0.0 #(double, default:0.0) #全局规划操作的执行频率。如果设置为0.0，则全局规划器仅在接收到新的目标点或者局部规划器报告路径堵塞时才会重新执行规划操作
 max_planning_retries: 10 #(int32, default:-1) #在执行修复操作前，允许规划器重新规划路径的次数，-1.0表示无限多次重新尝试
 
 #配置movebase的路径规划插件

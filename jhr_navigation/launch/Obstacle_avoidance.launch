@@ -10,7 +10,7 @@
          <param name="decimation" type="int" value="8"/>
          <param name="max_depth" type="double" value="5"/>
          <param name="min_depth" value="0.2"/>
-          <param name="noise_filter_radius" value="0.1"/> 
+         <param name="noise_filter_radius" value="0.1"/> 
          <param name="noise_filter_min_neighbors " value="5"/>
          <remap from="cloud" to="cloud_xyz"/>
       </node> -->

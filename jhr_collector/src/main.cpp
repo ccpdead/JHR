@@ -35,7 +35,7 @@ int main(int argc,char**argv)
     Jhr_moto::odom_pub_ptr = &odom_pub;
     
     Jhr_moto::odom_broadcaster = new tf::TransformBroadcaster();
-    ros::Rate loop_rate(100); 
+    ros::Rate loop_rate(15); 
     Jhr_udp::udp_poll_init(dev_ip.c_str());
     Jhr_udp::jhr_udp_arr[0]->set_rcv_callback(NULL);
     Jhr_udp::jhr_udp_arr[1]->set_rcv_callback(NULL);
