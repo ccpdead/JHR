@@ -1,6 +1,7 @@
 #include "jhr_moto_hls.h"
 #include "jhr_moto.h"
 #include "jhr_udp.h"
+#include <time.h>
 
 int Jhr_moto_hls::rcv_pack_cnt = 0; //记录回调次数
 short Jhr_moto_hls::lSpeed_r = 0;
@@ -116,8 +117,12 @@ void Jhr_moto_hls::rcv_callback_1(const char *buff_r, int iLen)
     }
     else
     {   static int i = 0;
-        i++;
-        std::cout << "CRC 错误" <<i<< std::endl;
+
+        time_t timep;
+        time(&timep);
+        char tmp[64];
+        strftime(tmp,sizeof(tmp)," <%H:%M:%S>",localtime(&timep));
+        std::cout << "CRC错误:No."<<i++ <<tmp<< std::endl;
     }
     moto_loop_pri();
 }

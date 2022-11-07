@@ -34,7 +34,7 @@
 
   <arg name="subscribe_scan_cloud" default="false"/>
   <arg name="scan_cloud_topic" default="/scan_cloud"/>
-
+  <!--不适用rtabmap的里程计-->
   <arg name="visual_odometry" default="false"/>
   <arg name="icp_odometry" default="false"/>
 

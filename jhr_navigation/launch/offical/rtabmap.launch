@@ -401,7 +401,7 @@
       <param unless="$(arg localization)" name="Mem/IncrementalMemory" type="string" value="true"/>
       <param name="Mem/InitWMWithAllNodes" type="string" value="$(arg localization)"/>
 
-      <param name="Reg/Strategy"       type="string" value="2"/>    <!-- 0=Visual, 1=ICP, 2=Visual+ICP -->
+      <param name="Reg/Strategy"       type="string" value="1"/>    <!-- 0=Visual, 1=ICP, 2=Visual+ICP -->
       <param name="Reg/Force3DoF"      type="string" value="true"/>   <!-- [Force 3 degrees-of-freedom transform (3Dof: x,y and yaw). Parameters z, roll and pitch will be set to 0.] -->
 
     </node>
