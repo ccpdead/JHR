@@ -118,11 +118,11 @@ void Jhr_moto_hls::rcv_callback_1(const char *buff_r, int iLen)
     else
     {   static int i = 0;
 
-        time_t timep;
-        time(&timep);
-        char tmp[64];
-        strftime(tmp,sizeof(tmp)," <%H:%M:%S>",localtime(&timep));
-        std::cout << "CRC错误:No."<<i++ <<tmp<< std::endl;
+        // time_t timep;
+        // time(&timep);
+        // char tmp[64];
+        // strftime(tmp,sizeof(tmp)," <%H:%M:%S>",localtime(&timep));
+        // std::cout << "CRC错误:No."<<i++ <<tmp<< std::endl;
     }
     moto_loop_pri();
 }

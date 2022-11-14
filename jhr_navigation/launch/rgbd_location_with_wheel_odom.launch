@@ -43,9 +43,15 @@
   <!-- <arg name="odom_frame_id" default=""/> -->
 
   <!--￥ 使用轮式里程机-->
-  <arg name="odom_topic" default="/hector/slam_out_pose"/>
-  <arg name="odom_frame_id" default="hector_map"/>
+  <!-- <arg name="odom_topic" default="/hector/slam_out_pose"/>
+  <arg name="odom_frame_id" default="hector_map"/> -->
 
+  <!--robot_pose_ekf-->
+  <!-- <arg name="odom_topic" default="/robot_pose_ekf/odom_combined"/>
+  <arg name="odom_frame_id" default="odom_combined"/> -->
+
+  <arg name="odom_topic" default="/rf2o_odom"/>
+  <arg name="odom_frame_id" default="rf2o_odom_link"/>
 
   <arg name="namespace" default="rtabmap"/>
   <arg name="wait_for_transform" default="1"/>

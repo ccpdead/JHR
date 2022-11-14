@@ -44,8 +44,8 @@ DWAPlannerROS:
   twirling_scale: 0.0
   stop_time_buffer: 0.1 #(double, default:0.2) #为防止碰撞，机器人必须提前停止的时间长度。
   # 防震荡参数
-  oscillation_reset_dist: 0.05 #(double, default:0.05) #机器人运动多远距离才会重置振荡标记
-  oscillation_reset_angle: 0.2
+  oscillation_reset_dist: 0.2 #(double, default:0.05) #机器人运动多远距离才会重置振荡标记
+  oscillation_reset_angle: 0.25
 
   forward_point_distance: 0.325 #(0.325)机器人中心点到放置附加得分点的距离，以米为单位
   scaling_speed: 0.25 #(double, default:0.25) #启动机器人底座的速度

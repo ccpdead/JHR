@@ -37,7 +37,7 @@
 
         <!-- Advertising config --> 
         <param name="advertise_map_service" value="false"/>
-        <param name="scan_subscriber_queue_size" value="5"/>
+        <param name="scan_subscriber_queue_size" value="200"/>
         
         <param name="scan_topic" value="/scan"/>
     </node>
