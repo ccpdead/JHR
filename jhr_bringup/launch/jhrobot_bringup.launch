@@ -30,18 +30,26 @@
     <!-- <node pkg="tf" type="static_transform_publisher" name="laser_to_camera" args="0.06 0 -0.07 0 0.262 0 camera_link base_laser_link   30" /> -->
     <!-- <node pkg="tf" type="static_transform_publisher" name="base_to_camera" args="0.165 0 0.22 0 -0.262 0 base_link camera_link   30" /> -->
 
-    <!-- 雷达视觉测试-->
-    <node pkg="tf" type="static_transform_publisher" name="base_footprint" args="0 0 0.25 0 0 0  base_footprint  base_link   50" />
+    <!--rtabmap_odom-->
+    <node pkg="tf" type="static_transform_publisher" name="base_footprint" args="0 0 0.25 0 0 0  base_footprint  base_link   30" />
     <node pkg="tf" type="static_transform_publisher" name="base_to_laser" args="0.21 0 0.085 0 0 0 base_link base_laser_link 50" />
+    
+    <!--rf2o_odom-->
+    <!-- <node pkg="tf" type="static_transform_publisher" name="base_footprint" args="0 0 0.25 0 0 0  base_link  base_footprint   50" /> -->
+    <!-- <node pkg="tf" type="static_transform_publisher" name="base_to_laser" args="-0.21 0 -0.085 0 0 0 base_laser_link base_link 30" /> -->
+
     <!-- <node pkg="tf" type="static_transform_publisher" name="base_to_imu" args="0 0 0    0 0 0 base_link base_imu_link   30" /> -->
-    <!-- <node pkg="tf" type="static_transform_publisher" name="laser_to_laser" args="0 0 0 0 0 0 base_laser_link scanmatcher_frame 100" /> -->
+    
+    <!--hector模式-->
+    <!-- <node pkg="tf" type="static_transform_publisher" name="laser_to_laser" args="0 0 0 0 0 0 base_laser_link scanmatcher_frame 50" /> -->
 
+    <!--相机横放-->
     <!-- <node pkg="tf" type="static_transform_publisher" name="base_to_camera" args="0.165 0 0.22 0 -0.262 0 base_link camera_link   30" /> -->
-
     <!-- 相机立放-->
     <node pkg="tf" type="static_transform_publisher" name="base_to_camera" args="0.165 0.04 0.22  0 0 -1.57 base_link camera_link   50" />
-    <node pkg="tf" type="static_transform_publisher" name="laser_to_tof_camera" args="0.045 0.0  -0.035 1.57 3.14 1.57 base_laser_link camera_point_cloud   50" />
-
+    
+    <!--tof相机位置-->
+    <node pkg="tf" type="static_transform_publisher" name="laser_to_tof_camera" args="0.255 0.0  -0.050 1.57 3.14 1.57 base_link camera_point_cloud   50" />
     <!-- 充电测试-->
     <!-- <node pkg="tf" type="static_transform_publisher" name="camera_to_recharge" args="1.05 0.015 0  0 0 0.067 camera_link recharge_link   30" /> -->
     <!-- <node pkg="tf" type="static_transform_publisher" name="base_footprint_to_recharge" args="1.214 0.015 0 0 0 0.067  b ase_footprint recharge_link2   30" />  -->

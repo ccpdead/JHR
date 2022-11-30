@@ -42,16 +42,21 @@
   <!-- <arg name="odom_topic" default="rtabmap_odom"/>          -->
   <!-- <arg name="odom_frame_id" default=""/> -->
 
-  <!--￥ 使用轮式里程机-->
-  <!-- <arg name="odom_topic" default="/hector/slam_out_pose"/>
-  <arg name="odom_frame_id" default="hector_map"/> -->
+  <!-- hector_odom-->
+  <!-- <arg name="odom_topic" default="/hector/slam_out_pose"/> -->
+  <!-- <arg name="odom_frame_id" default="hector_map"/> --> 
+
+  <!--wheel_odom-->
+  <!-- <arg name="odom_topic" default="/wheel_odom"/> -->
+  <!-- <arg name="odom_frame_id" default="/wheel_odom_link"/>  -->
 
   <!--robot_pose_ekf-->
-  <!-- <arg name="odom_topic" default="/robot_pose_ekf/odom_combined"/>
-  <arg name="odom_frame_id" default="odom_combined"/> -->
+  <arg name="odom_topic" default="/robot_pose_ekf/odom_combined"/>
+  <arg name="odom_frame_id" default="/odom_combined"/> 
 
-  <arg name="odom_topic" default="/rf2o_odom"/>
-  <arg name="odom_frame_id" default="rf2o_odom_link"/>
+  <!--rf2o_odom-->
+  <!-- <arg name="odom_topic" default="/rf2o_odom"/> -->
+  <!-- <arg name="odom_frame_id" default="rf2o_odom_link"/> -->
 
   <arg name="namespace" default="rtabmap"/>
   <arg name="wait_for_transform" default="1"/>

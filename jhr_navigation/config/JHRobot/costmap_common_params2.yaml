@@ -1,0 +1,41 @@
+# footprint: [[-0.3, -0.25], [-0.3, 0.25], [0.3, 0.25], [0.3, -0.25]]
+robot_radius: 0.26
+map_type: costmap
+
+#膨胀层参数设置
+inflation_laer:
+  inflation_radius: 0.26 #膨胀半径
+  cost_scaling_factor: 10 #膨胀系数
+  enable: true
+
+#障碍层参数设置
+obstacle_layer:
+  enabled: ture
+  obstacle_range: 6.0
+  raytrace_range: 6.0
+  inflation_radius: 0.05
+
+  #% 联合避障模式。
+  observation_sources: laser camera
+  laser:
+    {
+      sensor_frame: base_link,
+      data_type: LaserScan,
+      topic: /scan,
+      expected_update_rate: 5,
+      marking: true,
+      clearing: true,
+      min_obstacle_height: 0,
+      max_obstacle_height: 1,
+    }
+  # camera:
+  #   {
+  #     sensor_frame: base_link,
+  #     data_type: PointCloud2,
+  #     topic: /tof_camera/proj_obstacles,
+  #     expected_update_rate: 5,
+  #     marking: true,
+  #     clearing: true,
+  #     min_obstacle_height: 0,
+  #     max_obstacle_height: 1,
+  #   }

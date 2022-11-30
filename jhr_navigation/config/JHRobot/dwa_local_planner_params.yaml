@@ -21,7 +21,7 @@ DWAPlannerROS:
   # 目标点容错参数：
   prune_plan: true #(bool, default:true) #机器人前进时是否清除身后1m外的轨迹
   xy_goal_tolerance: 0.10 #(double, default:0.10) #到达目标点时，在xy平面内与目标点的距离误差
-  yaw_goal_tolerance: 0.05 #(double, default:0.05) #到达目标点时偏航角误差
+  yaw_goal_tolerance: 0.1 #(double, default:0.05) #到达目标点时偏航角误差
   latch_xy_goal_tolerance: false #(double, default:false) #是否为全向移动机器人
 
   trans_stopped_vel: 0.1 #最大刹车平移速度
@@ -44,7 +44,7 @@ DWAPlannerROS:
   twirling_scale: 0.0
   stop_time_buffer: 0.1 #(double, default:0.2) #为防止碰撞，机器人必须提前停止的时间长度。
   # 防震荡参数
-  oscillation_reset_dist: 0.2 #(double, default:0.05) #机器人运动多远距离才会重置振荡标记
+  oscillation_reset_dist: 0.05 #(double, default:0.05) #机器人运动多远距离才会重置振荡标记
   oscillation_reset_angle: 0.25
 
   forward_point_distance: 0.325 #(0.325)机器人中心点到放置附加得分点的距离，以米为单位
