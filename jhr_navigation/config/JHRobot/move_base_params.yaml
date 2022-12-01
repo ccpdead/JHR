@@ -58,7 +58,7 @@ recovery_behavior_enabled: true #(bool, default:true) #是否启用move_base修�
 controller_frequency: 5.0 #(double, default:20.0) #控制循环的执行频率，也可认为是速度发布指令的频率
 planner_patience: 10.0 #(double, default:5.0) #规划器在空间清除操作前,能够进行路径规划的时间
 conservative_reset_dist: 1.5 #(double, default:3.0) #当在地图中清理出空间时，距离机器人几米远的障碍会从代价地图中清除
-clearing_rotation_allowed: false #(bool, default:true) #在清除空间操作时，是否允许底座原地旋转
+clearing_rotation_allowed: true #(bool, default:true) #在清除空间操作时，是否允许底座原地旋转
 shutdown_costmaps: false #(bool, default:false) #当move_base不活动时，是否关闭costmaps
 oscillaiton_timeout: 5 #(double, default:0.0) #执行修复机制前，允许振荡的时长
 oscillation_distance: 0.5 #(double, default:0.5) #来回运动在多大距离以上不会被认为是振荡
