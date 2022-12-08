@@ -59,7 +59,7 @@ void Jhr_moto_hls::calcOdom(void)
 }
 
 /**
- * @brief 根据从UDP中获得的数据解析出下位机返回的线速度和角速度
+ * @brief UDP回调函数，当UDP接收到回收的数据后，进入此程序
  *
  * @param buff_r
  * @param iLen
@@ -116,8 +116,9 @@ void Jhr_moto_hls::rcv_callback_1(const char *buff_r, int iLen)
         }
     }
     else
-    {   static int i = 0;
-
+    {   
+        //CRC校验错误
+        // static int i = 0;
         // time_t timep;
         // time(&timep);
         // char tmp[64];
@@ -155,24 +156,22 @@ void Jhr_moto_hls::moto_loop(void)
 void Jhr_moto_hls::moto_loop_pri(void)
 {
     static int iCnt = 0;
-    //￥ 在switch语句中首先判断电机转速
     switch (iCnt)
     {
     case 0:
-        generateEncoder(1);
+        generateEncoder(1);//读取编码器值
         break;
     case 1:
-        generateSpeed(1);
+        generateSpeed(1);//读取电机速度
         break;
     case 2:
         if (Jhr_moto::lSpeed != 0 || Jhr_moto::rSpeed != 0)
-            generateEnable(1, 1);
+            generateEnable(1, 1);//电机是能
         else
-            generateEnable(1, 0); //当目标速度为0时，关闭电机
+            generateEnable(1, 0); //电机是否
         break;
-    //￥ 通过左右轮速度模式控制电机
     default:
-        generateSpeed(1, Jhr_moto::lSpeed, Jhr_moto::rSpeed);
+        generateSpeed(1, Jhr_moto::lSpeed, Jhr_moto::rSpeed);//设置电机左右轮速度
         break;
     }
     iCnt++;
