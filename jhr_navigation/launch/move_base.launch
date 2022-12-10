@@ -16,7 +16,7 @@
 
   <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen" clear_params="true">
     <!--配置代价地图的共有参数-->
-    <rosparam file="$(find jhr_navigation)/config/JHRobot/costmap_common_params.yaml" command="load" ns="global_costmap" />
+    <rosparam file="$(find jhr_navigation)/config/JHRobot/costmap_common_params2.yaml" command="load" ns="global_costmap" />
     <rosparam file="$(find jhr_navigation)/config/JHRobot/costmap_common_params.yaml" command="load" ns="local_costmap" />
     <!--配置局部代价地图和全局代价地图-->
     <rosparam file="$(find jhr_navigation)/config/JHRobot/local_costmap_params.yaml" command="load" />

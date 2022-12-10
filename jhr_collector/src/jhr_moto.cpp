@@ -443,9 +443,10 @@ void Jhr_moto::odom_publish(void)
     curr_time = ros::Time::now();
 
     geometry_msgs::Quaternion odom_quat = tf::createQuaternionMsgFromYaw(th);
+    // //发布tf转化
     // geometry_msgs::TransformStamped odom_trans;
     // odom_trans.header.stamp = curr_time;
-    // odom_trans.header.frame_id = "odom";
+    // odom_trans.header.frame_id = "wheel_odom_link";
     // odom_trans.child_frame_id = "base_link";
 
     // odom_trans.transform.translation.x = x;
@@ -453,7 +454,8 @@ void Jhr_moto::odom_publish(void)
     // odom_trans.transform.translation.z = 0.0;
     // odom_trans.transform.rotation = odom_quat;
     // odom_broadcaster->sendTransform(odom_trans);//发布tf转换。
-    //￥ 发布里程机wheel_odom
+
+    // 发布里程机wheel_odom
     nav_msgs::Odometry odom;
     odom.header.stamp = curr_time;
     odom.header.frame_id = "wheel_odom_link";
